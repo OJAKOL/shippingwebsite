@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ZAHAATI FREIGHTCARGO LTD | Global Logistics & Shipping Services</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <!-- Font Awesome for Marketplace Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Top Bar -->
+    <div class="top-bar">
+        <div class="container">
+            <a href="contact.html" class="orange-link"><i class="fas fa-ship"></i> Sell with Zahaati</a>
+            <div class="nav-links">
+                <a href="about.html">About Us</a>
+                <a href="contact.html">Help Center</a>
+                <a href="#" class="modal-trigger">Track My Shipment</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Marketplace Header -->
+    <header>
+        <div class="container">
+            <a href="index.html" class="logo">ZAHAATI<span>FREIGHT</span></a>
+
+            <div class="search-container">
+                <i class="fas fa-search"></i>
+                <input type="text" id="main-search" autocomplete="off" placeholder="Search for shipping types, destinations, or enter tracking number...">
+                <button id="search-action-btn">SEARCH</button>
+                <div id="search-suggestions" class="search-suggestions"></div>
+            </div>
+
+            <div class="header-nav">
+                <div class="nav-item dropdown">
+                    <i class="far fa-user"></i>
+                    <span>Account <i class="fas fa-chevron-down" style="font-size: 10px;"></i></span>
+                    <div class="dropdown-content">
+                        <a href="about.html"><i class="far fa-user"></i> My Profile</a>
+                        <a href="contact.html"><i class="fas fa-box"></i> My Shipments</a>
+                        <hr>
+                        <a href="contact.html" style="color: var(--jumia-orange); font-weight: bold; text-align: center;">SIGN IN</a>
+                    </div>
+                </div>
+                <a href="contact.html" class="nav-item">
+                    <i class="far fa-question-circle"></i>
+                    <span>Help</span>
+                </a>
+                <a href="contact.html" class="nav-item quote-btn-header" id="cart-counter-btn">
+                    <i class="fas fa-file-invoice-dollar"></i>
+                    <span>Quotes</span>
+                    <span id="cart-count" class="cart-badge">0</span>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <main class="container">
+        <!-- Main Layout: Sidebar + Hero Slider + Right Cards -->
+        <div class="main-grid">
+            <aside class="sidebar-menu">
+                <a href="cars.html" data-category="vehicles"><i class="fas fa-car"></i> Cars & Vehicles</a>
+                <a href="mechanics.html" data-category="mechanics"><i class="fas fa-tools"></i> Mechanics & Parts</a>
+                <a href="machinery.html" data-category="machinery"><i class="fas fa-tractor"></i> Heavy Machinery</a>
+                <a href="electronics.html" data-category="electronics"><i class="fas fa-laptop"></i> Electronics</a>
+                <a href="contact.html"><i class="fas fa-globe"></i> Global Routes</a>
+                <a href="about.html"><i class="fas fa-shield-alt"></i> Cargo Insurance</a>
+                <a href="contact.html"><i class="fas fa-truck-loading"></i> Warehousing</a>
+            </aside>
+
+            <section class="hero-wrapper">
+                <div class="slider-container">
+                    <div class="hero-slide active" style="background-image: url('https://images.unsplash.com/photo-1578575437130-527eed3abbec?auto=format&fit=crop&w=1200&q=80');">
+                        <h2>Elite Global <br> Freight Solutions</h2>
+                        <p>Standardized shipping for cars, machinery and electronics to any destination.</p>
+                        <a href="contact.html" class="hero-btn">SHIP NOW</a>
+                    </div>
+                    <div class="hero-slide" style="background-image: url('https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=1200&q=80');">
+                        <h2>Secure Vehicle <br> Logistics</h2>
+                        <p>Specialized Ro-Ro and Containerized transport for luxury and classic cars.</p>
+                        <a href="cars.html" class="hero-btn">VIEW RATES</a>
+                    </div>
+                    <div class="hero-slide" style="background-image: url('https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=1200&q=80');">
+                        <h2>Sensitive Tech <br> Shipping</h2>
+                        <p>Climate controlled freight for high-value electronics and medical equipment.</p>
+                        <a href="electronics.html" class="hero-btn">GET QUOTE</a>
+                    </div>
+
+                    <div class="slider-dots">
+                        <span class="dot active"></span>
+                        <span class="dot"></span>
+                        <span class="dot"></span>
+                    </div>
+                </div>
+            </section>
+
+            <aside class="right-sidebar">
+                <div class="side-card">
+                    <i class="fas fa-headset"></i>
+                    <div class="text">
+                        <strong>24/7 SUPPORT</strong>
+                        <span>Logistics experts ready</span>
+                    </div>
+                </div>
+                <div class="side-card">
+                    <i class="fas fa-undo"></i>
+                    <div class="text">
+                        <strong>SECURE TRANSIT</strong>
+                        <span>Guaranteed delivery</span>
+                    </div>
+                </div>
+                <div class="side-ad interactive-ad">
+                    <img src="https://images.unsplash.com/photo-1519311965067-36d3e5f33d39?auto=format&fit=crop&w=300&q=80" alt="Classic Car Promo">
+                    <div class="ad-overlay">
+                        <span>Classic Car Specialist</span>
+                        <button class="hero-btn mini">Learn More</button>
+                    </div>
+                </div>
+            </aside>
+        </div>
+
+        <!-- Featured Section (Flash Sales Style) -->
+        <section class="section-white">
+            <div class="section-title-bar">
+                <h2><i class="fas fa-bolt"></i> TOP SHIPPING DEALS <span class="countdown-timer" id="flash-timer">00h : 00m : 00s</span></h2>
+                <a href="#service-grid" class="see-all">SEE ALL ></a>
+            </div>
+            <div class="items-grid" id="service-grid">
+                <!-- Interactive Item Cards -->
+                <div class="item-card" data-category="vehicles" data-id="1">
+                    <img src="https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=200&q=80" alt="Car">
+                    <div class="name">Premium Car Shipping (Containerized)</div>
+                    <div class="price">Global Routes</div>
+                    <div class="old-price">Fast Transit</div>
+                    <div class="tag">TOP DEAL</div>
+                    <div class="card-actions">
+                        <button class="quick-view-btn">QUICK VIEW</button>
+                        <button class="buy-btn">REQUEST</button>
+                    </div>
+                </div>
+                <div class="item-card" data-category="mechanics" data-id="2">
+                    <img src="https://images.unsplash.com/photo-1486262715619-67b85e0b08d3?auto=format&fit=crop&w=200&q=80" alt="Engine">
+                    <div class="name">Industrial Engine & Parts Freight</div>
+                    <div class="price">Standard Care</div>
+                    <div class="old-price">Fully Insured</div>
+                    <div class="tag">MECHANICS</div>
+                    <div class="card-actions">
+                        <button class="quick-view-btn">QUICK VIEW</button>
+                        <button class="buy-btn">REQUEST</button>
+                    </div>
+                </div>
+                <div class="item-card" data-category="machinery" data-id="3">
+                    <img src="https://images.unsplash.com/photo-1579847611797-d463328e12f4?auto=format&fit=crop&w=200&q=80" alt="Machinery">
+                    <div class="name">Heavy Construction Machinery Transit</div>
+                    <div class="price">Oversize Cargo</div>
+                    <div class="old-price">Flat-Rack</div>
+                    <div class="tag">MACHINERY</div>
+                    <div class="card-actions">
+                        <button class="quick-view-btn">QUICK VIEW</button>
+                        <button class="buy-btn">REQUEST</button>
+                    </div>
+                </div>
+                <div class="item-card" data-category="electronics" data-id="4">
+                    <img src="https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=200&q=80" alt="Electronics">
+                    <div class="name">High-Tech & Sensitive Electronics</div>
+                    <div class="price">Climate Controlled</div>
+                    <div class="old-price">Secure Pkg</div>
+                    <div class="tag">ELECTRONICS</div>
+                    <div class="card-actions">
+                        <button class="quick-view-btn">QUICK VIEW</button>
+                        <button class="buy-btn">REQUEST</button>
+                    </div>
+                </div>
+                <div class="item-card" data-category="vehicles" data-id="5">
+                    <img src="https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?auto=format&fit=crop&w=200&q=80" alt="SUV">
+                    <div class="name">SUV & 4x4 Off-Road Transport</div>
+                    <div class="price">Bulk Discounts</div>
+                    <div class="old-price">Global Routes</div>
+                    <div class="tag">VEHICLES</div>
+                    <div class="card-actions">
+                        <button class="quick-view-btn">QUICK VIEW</button>
+                        <button class="buy-btn">REQUEST</button>
+                    </div>
+                </div>
+                <div class="item-card" data-category="machinery" data-id="6">
+                    <img src="https://images.unsplash.com/photo-1594488310342-88741349839f?auto=format&fit=crop&w=200&q=80" alt="Tractor">
+                    <div class="name">Agricultural Equipment Logistics</div>
+                    <div class="price">Priority Transit</div>
+                    <div class="old-price">Low-loader</div>
+                    <div class="tag">AGRICULTURE</div>
+                    <div class="card-actions">
+                        <button class="quick-view-btn">QUICK VIEW</button>
+                        <button class="buy-btn">REQUEST</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Category Grid Section -->
+        <section class="section-white">
+            <div class="section-title-bar blue">
+                <h2>SHIP BY COMMODITY</h2>
+            </div>
+            <div class="items-grid">
+                <a href="cars.html" class="item-card cat-zoom">
+                    <img src="https://images.unsplash.com/photo-1542362567-b05e50029d2f?auto=format&fit=crop&w=200&q=80" alt="Cars Category">
+                    <div class="name" style="text-align:center; font-weight:700;">VEHICLES</div>
+                </a>
+                <a href="mechanics.html" class="item-card cat-zoom">
+                    <img src="https://images.unsplash.com/photo-1530046339160-ce3e5b087ea0?auto=format&fit=crop&w=200&q=80" alt="Mechanics Category">
+                    <div class="name" style="text-align:center; font-weight:700;">MECHANICS</div>
+                </a>
+                <a href="machinery.html" class="item-card cat-zoom">
+                    <img src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&w=200&q=80" alt="Machinery Category">
+                    <div class="name" style="text-align:center; font-weight:700;">MACHINERY</div>
+                </a>
+                <a href="electronics.html" class="item-card cat-zoom">
+                    <img src="https://images.unsplash.com/photo-1550009158-9ebf69173e03?auto=format&fit=crop&w=200&q=80" alt="Electronics Category">
+                    <div class="name" style="text-align:center; font-weight:700;">ELECTRONICS</div>
+                </a>
+            </div>
+        </section>
+    </main>
+
+    <!-- Modals -->
+    <div id="track-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h3><i class="fas fa-shipping-fast" style="color: var(--jumia-orange);"></i> Track Your Shipment</h3>
+            <div class="track-form-modal">
+                <input type="text" id="modal-track-input" placeholder="Enter Tracking Number (e.g., ZH123456)">
+                <button id="modal-track-btn">TRACK</button>
+            </div>
+            <div id="track-status-result" style="display: none;">
+                <hr>
+                <p id="status-text"></p>
+                <div class="status-tracker">
+                    <div class="status-node" id="node-1"><span>1</span><br>Order</div>
+                    <div class="status-node" id="node-2"><span>2</span><br>Port</div>
+                    <div class="status-node" id="node-3"><span>3</span><br>Transit</div>
+                    <div class="status-node" id="node-4"><span>4</span><br>Arrival</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="quick-view-modal" class="modal">
+        <div class="modal-content qv-content">
+            <span class="close-modal close-qv">&times;</span>
+            <div class="qv-grid">
+                <div class="qv-image"><img id="qv-img" src="" alt="Service Image"></div>
+                <div class="qv-details">
+                    <h3 id="qv-name"></h3>
+                    <p class="qv-price" id="qv-price"></p>
+                    <p class="qv-desc">Elite crating and secure handling ensured for every shipment. We provide global logistics coverage with end-to-end transparency.</p>
+                    <hr>
+                    <ul class="qv-features">
+                        <li><i class="fas fa-check-circle"></i> Fully Insured Transit</li>
+                        <li><i class="fas fa-check-circle"></i> Real-time GPS Tracking</li>
+                    </ul>
+                    <button class="hero-btn buy-btn" id="qv-buy-btn">ADD TO REQUEST</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="container">
+            <div class="footer-top">
+                <div class="footer-logo">ZAHAATI<span>FREIGHT</span></div>
+                <div class="footer-subscribe">
+                    <h4>NEW TO ZAHAATI?</h4>
+                    <p>Subscribe to our newsletter for route updates!</p>
+                    <div class="subscribe-form">
+                        <input type="email" id="sub-email" placeholder="Enter Email Address" required>
+                        <button id="sub-submit">SUBMIT</button>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-links">
+                <div class="footer-col">
+                    <h4>HELP CENTER</h4>
+                    <ul>
+                        <li><a href="contact.html">Contact Us</a></li>
+                        <li><a href="#" class="modal-trigger">Track Shipment</a></li>
+                        <li><a href="about.html">Shipping Policy</a></li>
+                        <li><a href="contact.html">FAQs</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>ABOUT ZAHAATI</h4>
+                    <ul>
+                        <li><a href="about.html">Company Profile</a></li>
+                        <li><a href="about.html">Network Coverage</a></li>
+                        <li><a href="about.html">Terms & Conditions</a></li>
+                        <li><a href="about.html">Privacy Policy</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>OUR SERVICES</h4>
+                    <ul>
+                        <li><a href="cars.html">Vehicle Shipping</a></li>
+                        <li><a href="machinery.html">Heavy Machinery</a></li>
+                        <li><a href="mechanics.html">Mechanics & Parts</a></li>
+                        <li><a href="electronics.html">High-Tech Freight</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>INTERNATIONAL</h4>
+                    <div style="font-size: 11px; color: #9b9b9d; display: flex; flex-wrap: wrap; gap: 5px;">
+                        <span>USA</span> | <span>Dubai</span> | <span>China</span> | <span>Germany</span> | <span>Kenya</span> | <span>Nigeria</span> | <span>South Africa</span>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <div class="social-links">
+                    <a href="#" aria-label="ZAHAATI on Facebook"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" aria-label="ZAHAATI on Twitter"><i class="fab fa-twitter"></i></a>
+                    <a href="#" aria-label="ZAHAATI on Instagram"><i class="fab fa-instagram"></i></a>
+                    <a href="#" aria-label="ZAHAATI on YouTube"><i class="fab fa-youtube"></i></a>
+                </div>
+                <p>&copy; 2026 ZAHAATI FREIGHTCARGO LTD. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Mobile Navigation Bar -->
+    <nav class="mobile-nav">
+        <a href="index.html" class="m-nav-item active">
+            <i class="fas fa-home"></i>
+            <span>Home</span>
+        </a>
+        <a href="about.html" class="m-nav-item">
+            <i class="fas fa-info-circle"></i>
+            <span>About</span>
+        </a>
+        <a href="#" class="m-nav-item modal-trigger">
+            <i class="fas fa-search-location"></i>
+            <span>Track</span>
+        </a>
+        <a href="contact.html" class="m-nav-item">
+            <i class="fas fa-headset"></i>
+            <span>Help</span>
+        </a>
+        <a href="about.html" class="m-nav-item">
+            <i class="far fa-user"></i>
+            <span>Account</span>
+        </a>
+    </nav>
+
+    <script src="script.js"></script>
+</body>
+</html>

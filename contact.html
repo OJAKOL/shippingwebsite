@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact ZAHAATI | Global Logistics Support</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <!-- Font Awesome for Marketplace Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Top Bar -->
+    <div class="top-bar">
+        <div class="container">
+            <a href="contact.html" class="orange-link"><i class="fas fa-headset"></i> Customer Priority Desk</a>
+            <div class="nav-links">
+                <a href="index.html">Home</a>
+                <a href="about.html">About Us</a>
+                <a href="#" class="modal-trigger">Track My Shipment</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Marketplace Header -->
+    <header>
+        <div class="container">
+            <a href="index.html" class="logo">ZAHAATI<span>FREIGHT</span></a>
+
+            <div class="search-container">
+                <i class="fas fa-search"></i>
+                <input type="text" id="main-search" placeholder="Search for support topics, routes, documentation...">
+                <button id="search-action-btn">SEARCH</button>
+            </div>
+
+            <div class="header-nav">
+                <div class="nav-item dropdown">
+                    <i class="far fa-user"></i>
+                    <span>Account <i class="fas fa-chevron-down" style="font-size: 10px;"></i></span>
+                    <div class="dropdown-content">
+                        <a href="about.html">Profile</a>
+                        <a href="contact.html">Active Quotes</a>
+                        <hr>
+                        <a href="contact.html" style="color: var(--jumia-orange); font-weight: bold; text-align: center;">LOG IN</a>
+                    </div>
+                </div>
+                <a href="contact.html" class="nav-item">
+                    <i class="far fa-question-circle"></i>
+                    <span>Help</span>
+                </a>
+                <a href="contact.html" class="nav-item quote-btn-header">
+                    <i class="fas fa-file-invoice-dollar"></i>
+                    <span>Quotes</span>
+                    <span id="cart-count" class="cart-badge">0</span>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <main class="container">
+        <!-- Main Layout -->
+        <div class="main-grid">
+            <aside class="sidebar-menu">
+                <div style="padding: 10px 16px; font-weight: bold; border-bottom: 1px solid var(--border-color);">HELP CENTER</div>
+                <a href="mailto:ojakolcharlez@gmail.com" style="color: var(--jumia-orange); font-weight: bold;"><i class="fas fa-envelope"></i> Message Us</a>
+                <a href="tel:+97140000000"><i class="fas fa-phone"></i> Call Support</a>
+                <a href="https://www.google.com/maps/search/?api=1&query=123+Logistics+Tower+Dubai+UAE"><i class="fas fa-map-marker-alt"></i> Office Locations</a>
+                <a href="about.html"><i class="fas fa-file-pdf"></i> Shipping Docs</a>
+                <hr>
+                <a href="about.html"><i class="fas fa-question"></i> FAQs</a>
+            </aside>
+
+            <section class="section-white" style="grid-column: span 2; padding: 30px;">
+                <div class="section-title-bar blue">
+                    <h2>GET A SHIPPING QUOTE / CONTACT US</h2>
+                </div>
+
+                <div class="contact-layout">
+                    <!-- Contact Form -->
+                    <div class="contact-form-container">
+                        <p style="margin-bottom: 20px; color: var(--text-muted);">Please fill out the form below. Our freight specialists will respond with a custom quote within 24 hours.</p>
+                        <form id="marketplace-contact-form" action="https://formsubmit.co/ojakolcharlez@gmail.com" method="POST">
+                            <input type="hidden" name="_subject" value="New ZAHAATI shipping quote request">
+                            <input type="hidden" name="_template" value="table">
+                            <input type="hidden" name="_captcha" value="true">
+                            <div class="contact-name-email">
+                                <div class="form-group">
+                                    <label for="full-name" style="display:block; margin-bottom:5px; font-weight:bold;">Full Name*</label>
+                                    <input id="full-name" type="text" name="full_name" placeholder="e.g. John Doe" style="width:100%; padding:12px; border:1px solid #ccc; border-radius:4px;" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="email-address" style="display:block; margin-bottom:5px; font-weight:bold;">Email Address*</label>
+                                    <input id="email-address" type="email" name="email" placeholder="e.g. john@business.com" style="width:100%; padding:12px; border:1px solid #ccc; border-radius:4px;" required>
+                                </div>
+                            </div>
+
+                            <div class="form-group" style="margin-top:15px;">
+                                <label for="commodity-type" style="display:block; margin-bottom:5px; font-weight:bold;">Commodity Type</label>
+                                <select id="commodity-type" name="commodity_type" style="width:100%; padding:12px; border:1px solid #ccc; border-radius:4px;">
+                                    <option>Cars & Vehicles</option>
+                                    <option>Mechanics & Parts</option>
+                                    <option>Heavy Machinery</option>
+                                    <option>Electronics</option>
+                                    <option>Other / General Cargo</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group" style="margin-top:15px;">
+                                <label for="shipment-details" style="display:block; margin-bottom:5px; font-weight:bold;">Shipment Details*</label>
+                                <textarea id="shipment-details" name="shipment_details" placeholder="Describe origin, destination, and item specs..." style="width:100%; padding:12px; border:1px solid #ccc; border-radius:4px; height:120px;" required></textarea>
+                            </div>
+
+                            <button type="submit" class="hero-btn" style="width:100%; margin-top:20px; border:none; cursor:pointer;">SEND REQUEST</button>
+                        </form>
+                    </div>
+
+                    <!-- Contact Info -->
+                    <div class="contact-info-panel">
+                        <div class="side-card" style="margin-bottom: 20px;">
+                            <i class="fas fa-building"></i>
+                            <div class="text">
+                                <strong>Global Headquarters</strong>
+                                <span>123 Logistics Tower, Dubai, UAE</span>
+                            </div>
+                        </div>
+                        <div class="side-card" style="margin-bottom: 20px;">
+                            <i class="fas fa-phone-alt"></i>
+                            <div class="text">
+                                <strong>Direct Line</strong>
+                                <span>+971 4 000 0000</span>
+                            </div>
+                        </div>
+                        <div class="side-card">
+                            <i class="fas fa-clock"></i>
+                            <div class="text">
+                                <strong>Operational Hours</strong>
+                                <span>Mon - Sat: 08:00 - 18:00</span>
+                            </div>
+                        </div>
+                        <div style="margin-top: 30px; background: #eee; height: 180px; border-radius: 8px; display: flex; align-items: center; justify-content: center; color: #999;">
+                            <i class="fas fa-map-marked-alt fa-3x"></i>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Tracking Modal -->
+    <div id="track-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h3><i class="fas fa-shipping-fast" style="color: var(--jumia-orange);"></i> Track Your Shipment</h3>
+            <div class="track-form-modal">
+                <input type="text" id="modal-track-input" placeholder="Enter Tracking Number...">
+                <button id="modal-track-btn">TRACK</button>
+            </div>
+            <div id="track-status-result" style="display: none;">
+                <hr>
+                <p id="status-text"></p>
+                <div class="status-tracker">
+                    <div class="status-node" id="node-1"><span>1</span><br>Order</div>
+                    <div class="status-node" id="node-2"><span>2</span><br>Port</div>
+                    <div class="status-node" id="node-3"><span>3</span><br>Transit</div>
+                    <div class="status-node" id="node-4"><span>4</span><br>Arrival</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="container">
+            <p style="text-align: center; color: #9b9b9d; font-size: 12px; padding: 20px 0;">&copy; 2026 ZAHAATI FREIGHTCARGO LTD. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Mobile Navigation -->
+    <nav class="mobile-nav">
+        <a href="index.html" class="m-nav-item"><i class="fas fa-home"></i><span>Home</span></a>
+        <a href="about.html" class="m-nav-item"><i class="fas fa-info-circle"></i><span>About</span></a>
+        <a href="#" class="m-nav-item modal-trigger"><i class="fas fa-search-location"></i><span>Track</span></a>
+        <a href="contact.html" class="m-nav-item active"><i class="fas fa-headset"></i><span>Help</span></a>
+    </nav>
+
+    <script src="script.js"></script>
+</body>
+</html>
