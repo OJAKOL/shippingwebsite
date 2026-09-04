@@ -12,31 +12,46 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
+    <!-- Top Bar -->
     <div class="top-bar">
         <div class="container">
-            <a href="index.html" class="orange-link"><i class="fas fa-microchip"></i> Specialized Tech Logistics</a>
+            <a href="contact.html" class="orange-link"><i class="fas fa-microchip"></i> Specialized Tech Logistics</a>
             <div class="nav-links">
-                <a href="index.html">Home</a>
+                <a href="about.html">About Us</a>
                 <a href="contact.html">Help Center</a>
                 <a href="#" class="modal-trigger">Track My Shipment</a>
             </div>
         </div>
     </div>
 
+    <!-- Marketplace Header -->
     <header>
         <div class="container">
             <a href="index.html" class="logo">ZAHAATI<span>FREIGHT</span></a>
+
             <div class="search-container">
                 <i class="fas fa-search"></i>
-                <input type="text" id="main-search" placeholder="Search servers, medical tech, consumer electronics...">
+                <input type="text" id="main-search" autocomplete="off" placeholder="Search for servers, medical tech, or tracking number...">
                 <button id="search-action-btn">SEARCH</button>
+                <div id="search-suggestions" class="search-suggestions"></div>
             </div>
+
             <div class="header-nav">
+                <div class="nav-item dropdown">
+                    <i class="far fa-user"></i>
+                    <span>Account <i class="fas fa-chevron-down" style="font-size: 10px;"></i></span>
+                    <div class="dropdown-content">
+                        <a href="about.html"><i class="far fa-user"></i> My Profile</a>
+                        <a href="contact.html"><i class="fas fa-box"></i> My Shipments</a>
+                        <hr>
+                        <a href="contact.html" style="color: var(--jumia-orange); font-weight: bold; text-align: center;">SIGN IN</a>
+                    </div>
+                </div>
                 <a href="contact.html" class="nav-item">
                     <i class="far fa-question-circle"></i>
                     <span>Help</span>
                 </a>
-                <a href="contact.html" class="nav-item quote-btn-header">
+                <a href="contact.html" class="nav-item quote-btn-header" id="cart-counter-btn">
                     <i class="fas fa-file-invoice-dollar"></i>
                     <span>Quotes</span>
                     <span id="cart-count" class="cart-badge">0</span>
@@ -48,51 +63,103 @@
     <main class="container">
         <div class="main-grid">
             <aside class="sidebar-menu">
-                <div style="padding: 10px 16px; font-weight: bold; border-bottom: 1px solid var(--border-color);">ELECTRONICS</div>
-                <a href="electronics.html"><i class="fas fa-server"></i> Data Centers</a>
-                <a href="electronics.html"><i class="fas fa-heartbeat"></i> Medical Tech</a>
-                <a href="electronics.html"><i class="fas fa-mobile-alt"></i> Consumer Goods</a>
-                <a href="electronics.html"><i class="fas fa-microchip"></i> Industrial PLC</a>
+                <div style="padding: 10px 16px; font-weight: bold; color: var(--navy); border-bottom: 1px solid var(--border);">TECH SECTORS</div>
+                <a href="#"><i class="fas fa-server"></i> Data Centers</a>
+                <a href="#"><i class="fas fa-heartbeat"></i> Medical Systems</a>
+                <a href="#"><i class="fas fa-mobile-alt"></i> Consumer Tech</a>
+                <a href="#"><i class="fas fa-microchip"></i> Industrial PLC</a>
                 <hr>
                 <div style="padding: 10px 16px; font-weight: bold;">HANDLING</div>
-                <a href="electronics.html">Climate Controlled</a>
-                <a href="electronics.html">Vibration Protected</a>
+                <a href="#">Climate Controlled</a>
+                <a href="#">Vibration Protected</a>
             </aside>
 
             <section class="section-white" style="grid-column: span 2;">
                 <div class="section-title-bar blue">
-                    <h2>ELECTRONICS & HIGH-TECH FREIGHT CATALOG</h2>
+                    <h2>ELECTRONICS & PRECISION TECHNOLOGY CATALOG</h2>
                 </div>
                 <div class="items-grid" id="service-grid">
                     <div class="item-card" data-category="electronics">
-                        <img src="https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=300&q=80" alt="Control Systems">
-                        <div class="name">Industrial Control Systems & PLC Panels</div>
-                        <div class="price">Precision Care</div>
-                        <div class="tag">INDUSTRIAL</div>
-                        <button class="buy-btn">REQUEST QUOTE</button>
+                        <img src="https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=300&q=80" alt="Server">
+                        <div class="name">Enterprise Data Center & Server Units</div>
+                        <div class="price">White-Glove Care</div>
+                        <div class="tag">SECURE</div>
+                        <div class="card-actions">
+                            <button class="quick-view-btn">QUICK VIEW</button>
+                            <button class="buy-btn">REQUEST</button>
+                        </div>
                     </div>
                     <div class="item-card" data-category="electronics">
-                        <img src="https://images.unsplash.com/photo-1550009158-9ebf69173e03?auto=format&fit=crop&w=300&q=80" alt="Bulk Tech">
-                        <div class="name">Bulk Consumer Electronics (Mobiles/Laptops)</div>
+                        <img src="https://images.unsplash.com/photo-1550009158-9ebf69173e03?auto=format&fit=crop&w=300&q=80" alt="Consumables">
+                        <div class="name">Bulk Consumer Electronics (Laptops/Mobile)</div>
                         <div class="price">Global Distribution</div>
-                        <div class="tag">DISTRIBUTION</div>
-                        <button class="buy-btn">REQUEST QUOTE</button>
+                        <div class="tag">FAST TRACK</div>
+                        <div class="card-actions">
+                            <button class="quick-view-btn">QUICK VIEW</button>
+                            <button class="buy-btn">REQUEST</button>
+                        </div>
                     </div>
                     <div class="item-card" data-category="electronics">
                         <img src="https://images.unsplash.com/photo-1581093588401-fbb62a02f120?auto=format&fit=crop&w=300&q=80" alt="Medical">
-                        <div class="name">Sensitive Medical Imaging & Lab Equipment</div>
-                        <div class="price">Elite Logistics</div>
-                        <div class="tag">SENSITIVE</div>
-                        <button class="buy-btn">REQUEST QUOTE</button>
+                        <div class="name">Sensitive Medical Imaging & Lab Hardware</div>
+                        <div class="price">Fully Insured</div>
+                        <div class="tag">HIGH PRIORITY</div>
+                        <div class="card-actions">
+                            <button class="quick-view-btn">QUICK VIEW</button>
+                            <button class="buy-btn">REQUEST</button>
+                        </div>
                     </div>
                 </div>
             </section>
         </div>
     </main>
 
+    <!-- Modals -->
+    <div id="track-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h3><i class="fas fa-shipping-fast" style="color: var(--jumia-orange);"></i> Track Your Shipment</h3>
+            <div class="track-form-modal">
+                <input type="text" id="modal-track-input" placeholder="Enter Tracking Number...">
+                <button id="modal-track-btn">TRACK</button>
+            </div>
+            <div id="track-status-result" style="display: none;">
+                <hr>
+                <p id="status-text"></p>
+                <div class="status-tracker">
+                    <div class="status-node" id="node-1"><span>1</span><br>Order</div>
+                    <div class="status-node" id="node-2"><span>2</span><br>Port</div>
+                    <div class="status-node" id="node-3"><span>3</span><br>Transit</div>
+                    <div class="status-node" id="node-4"><span>4</span><br>Arrival</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="quick-view-modal" class="modal">
+        <div class="modal-content qv-content">
+            <span class="close-modal close-qv">&times;</span>
+            <div class="qv-grid">
+                <div class="qv-image"><img id="qv-img" src="" alt="Service Image"></div>
+                <div class="qv-details">
+                    <h3 id="qv-name"></h3>
+                    <p class="qv-price" id="qv-price"></p>
+                    <p class="qv-desc">Elite tech crating and climate-controlled secure handling ensured for every tech shipment.</p>
+                    <hr>
+                    <ul class="qv-features">
+                        <li><i class="fas fa-check-circle"></i> ESD Protection</li>
+                        <li><i class="fas fa-check-circle"></i> Real-time GPS Tracking</li>
+                    </ul>
+                    <button class="hero-btn buy-btn" id="qv-buy-btn">ADD TO REQUEST</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile Nav -->
     <nav class="mobile-nav">
         <a href="index.html" class="m-nav-item"><i class="fas fa-home"></i><span>Home</span></a>
-        <a href="electronics.html" class="m-nav-item active"><i class="fas fa-laptop"></i><span>Electronics</span></a>
+        <a href="electronics.html" class="m-nav-item active"><i class="fas fa-laptop"></i><span>Tech</span></a>
         <a href="#" class="m-nav-item modal-trigger"><i class="fas fa-search-location"></i><span>Track</span></a>
         <a href="contact.html" class="m-nav-item"><i class="fas fa-headset"></i><span>Help</span></a>
     </nav>

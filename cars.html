@@ -3,39 +3,55 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Vehicle Shipping | ZAHAATI FREIGHTCARGO LTD</title>
+    <title>Vehicle Shipping Catalog | ZAHAATI FREIGHTCARGO LTD</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
+    <!-- Font Awesome for Marketplace Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
+    <!-- Top Bar -->
     <div class="top-bar">
         <div class="container">
-            <a href="index.html" class="orange-link"><i class="fas fa-ship"></i> Professional Logistics</a>
+            <a href="contact.html" class="orange-link"><i class="fas fa-ship"></i> Sell with Zahaati</a>
             <div class="nav-links">
-                <a href="index.html">Home</a>
                 <a href="about.html">About Us</a>
-                <a href="#" class="modal-trigger">Track Shipment</a>
+                <a href="contact.html">Help Center</a>
+                <a href="#" class="modal-trigger" data-target="track-modal">Track My Shipment</a>
             </div>
         </div>
     </div>
 
+    <!-- Marketplace Header -->
     <header>
         <div class="container">
             <a href="index.html" class="logo">ZAHAATI<span>FREIGHT</span></a>
+
             <div class="search-container">
                 <i class="fas fa-search"></i>
-                <input type="text" id="main-search" placeholder="Search vehicle types, Ro-Ro rates...">
+                <input type="text" id="main-search" autocomplete="off" placeholder="Search for car models, Ro-Ro rates, or enter tracking number...">
                 <button id="search-action-btn">SEARCH</button>
+                <div id="search-suggestions" class="search-suggestions"></div>
             </div>
+
             <div class="header-nav">
+                <div class="nav-item dropdown">
+                    <i class="far fa-user"></i>
+                    <span>Account <i class="fas fa-chevron-down" style="font-size: 10px;"></i></span>
+                    <div class="dropdown-content">
+                        <a href="about.html"><i class="far fa-user"></i> My Profile</a>
+                        <a href="contact.html"><i class="fas fa-box"></i> My Shipments</a>
+                        <hr>
+                        <a href="contact.html" style="color: var(--jumia-orange); font-weight: bold; text-align: center;">SIGN IN</a>
+                    </div>
+                </div>
                 <a href="contact.html" class="nav-item">
                     <i class="far fa-question-circle"></i>
                     <span>Help</span>
                 </a>
-                <a href="contact.html" class="nav-item quote-btn-header">
+                <a href="contact.html" class="nav-item quote-btn-header" id="cart-counter-btn">
                     <i class="fas fa-file-invoice-dollar"></i>
                     <span>Quotes</span>
                     <span id="cart-count" class="cart-badge">0</span>
@@ -47,15 +63,15 @@
     <main class="container">
         <div class="main-grid">
             <aside class="sidebar-menu">
-                <div style="padding: 10px 16px; font-weight: bold; border-bottom: 1px solid var(--border-color);">VEHICLE SERVICES</div>
-                <a href="cars.html"><i class="fas fa-truck-pickup"></i> Luxury Sedans</a>
+                <div style="padding: 10px 16px; font-weight: bold; color: var(--navy); border-bottom: 1px solid var(--border);">VEHICLE SERVICES</div>
+                <a href="cars.html" class="active"><i class="fas fa-car-side"></i> Luxury Sedans</a>
                 <a href="cars.html"><i class="fas fa-shuttle-van"></i> SUVs & 4x4s</a>
-                <a href="cars.html"><i class="fas fa-car-side"></i> Classic Cars</a>
-                <a href="cars.html"><i class="fas fa-truck"></i> Heavy Trucks</a>
+                <a href="cars.html"><i class="fas fa-truck"></i> Heavy Duty Trucks</a>
+                <a href="cars.html"><i class="fas fa-trailer"></i> Classic & Antique</a>
                 <hr>
-                <div style="padding: 10px 16px; font-weight: bold;">SHIPPING TYPE</div>
-                <a href="cars.html">Ro-Ro Shipping</a>
-                <a href="cars.html">Containerized</a>
+                <div style="padding: 10px 16px; font-weight: bold; color: var(--navy);">SHIPPING METHODS</div>
+                <a href="#"><i class="fas fa-anchor"></i> Ro-Ro Shipping</a>
+                <a href="#"><i class="fas fa-box-open"></i> Container (FCL/LCL)</a>
             </aside>
 
             <section class="section-white" style="grid-column: span 2;">
@@ -63,43 +79,100 @@
                     <h2>CAR & VEHICLE SHIPPING CATALOG</h2>
                 </div>
                 <div class="items-grid" id="service-grid">
-                    <div class="item-card" data-category="vehicles">
+                    <div class="item-card" data-category="vehicles" data-id="1">
                         <img src="https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=300&q=80" alt="Luxury Sedan">
                         <div class="name">Luxury Sedan Enclosed Container Shipping</div>
-                        <div class="price">Premium Handling</div>
-                        <div class="tag">SECURE</div>
-                        <button class="buy-btn">REQUEST QUOTE</button>
+                        <div class="price">Elite Protection</div>
+                        <div class="tag">TOP SERVICE</div>
+                        <div class="card-actions">
+                            <button class="quick-view-btn">QUICK VIEW</button>
+                            <button class="buy-btn">REQUEST</button>
+                        </div>
                     </div>
-                    <div class="item-card" data-category="vehicles">
+                    <div class="item-card" data-category="vehicles" data-id="5">
                         <img src="https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?auto=format&fit=crop&w=300&q=80" alt="SUV">
-                        <div class="name">Standard SUV Ro-Ro Global Transit</div>
-                        <div class="price">Standard Rates</div>
+                        <div class="name">Standard SUV & 4x4 Ro-Ro Global Transit</div>
+                        <div class="price">Port-to-Port</div>
                         <div class="tag">ECONOMY</div>
-                        <button class="buy-btn">REQUEST QUOTE</button>
+                        <div class="card-actions">
+                            <button class="quick-view-btn">QUICK VIEW</button>
+                            <button class="buy-btn">REQUEST</button>
+                        </div>
                     </div>
-                    <div class="item-card" data-category="vehicles">
+                    <div class="item-card" data-category="vehicles" data-id="7">
                         <img src="https://images.unsplash.com/photo-1519311965067-36d3e5f33d39?auto=format&fit=crop&w=300&q=80" alt="Classic">
-                        <div class="name">Vintage & Antique White-Glove Logistics</div>
-                        <div class="price">Insured Value</div>
-                        <div class="tag">EXPERT</div>
-                        <button class="buy-btn">REQUEST QUOTE</button>
-                    </div>
-                    <div class="item-card" data-category="vehicles">
-                        <img src="https://images.unsplash.com/photo-1562911791-c7a97b729ec5?auto=format&fit=crop&w=300&q=80" alt="Truck">
-                        <div class="name">Commercial Truck & Heavy Haulage</div>
-                        <div class="price">Oversize Load</div>
-                        <div class="tag">HEAVY</div>
-                        <button class="buy-btn">REQUEST QUOTE</button>
+                        <div class="name">Classic & Antique White-Glove Logistics</div>
+                        <div class="price">Fully Insured</div>
+                        <div class="tag">EXPERT CARE</div>
+                        <div class="card-actions">
+                            <button class="quick-view-btn">QUICK VIEW</button>
+                            <button class="buy-btn">REQUEST</button>
+                        </div>
                     </div>
                 </div>
             </section>
         </div>
     </main>
 
+    <!-- Modals -->
+    <div id="track-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h3><i class="fas fa-shipping-fast" style="color: var(--jumia-orange);"></i> Track Your Shipment</h3>
+            <div class="track-form-modal">
+                <input type="text" id="modal-track-input" placeholder="Enter Tracking Number...">
+                <button id="modal-track-btn">TRACK</button>
+            </div>
+            <div id="track-status-result" style="display: none;">
+                <hr>
+                <p id="status-text"></p>
+                <div class="status-tracker">
+                    <div class="status-node" id="node-1"><span>1</span><br>Order</div>
+                    <div class="status-node" id="node-2"><span>2</span><br>Port</div>
+                    <div class="status-node" id="node-3"><span>3</span><br>Transit</div>
+                    <div class="status-node" id="node-4"><span>4</span><br>Arrival</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="quick-view-modal" class="modal">
+        <div class="modal-content qv-content">
+            <span class="close-modal close-qv">&times;</span>
+            <div class="qv-grid">
+                <div class="qv-image"><img id="qv-img" src="" alt="Service Image"></div>
+                <div class="qv-details">
+                    <h3 id="qv-name"></h3>
+                    <p class="qv-price" id="qv-price"></p>
+                    <p class="qv-desc">Elite crating and secure handling ensured for every shipment. We provide global logistics coverage with end-to-end transparency.</p>
+                    <hr>
+                    <ul class="qv-features">
+                        <li><i class="fas fa-check-circle"></i> Fully Insured Transit</li>
+                        <li><i class="fas fa-check-circle"></i> Real-time GPS Tracking</li>
+                    </ul>
+                    <button class="hero-btn buy-btn" id="qv-buy-btn">ADD TO REQUEST</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Floating WhatsApp Widget -->
+    <a href="https://wa.me/1234567890" class="whatsapp-float" target="_blank">
+        <i class="fab fa-whatsapp"></i>
+        <span>Chat with Us</span>
+    </a>
+
+    <footer>
+        <div class="container">
+            <p style="text-align: center; color: #cbd5e1; font-size: 12px; padding: 20px 0;">&copy; 2026 ZAHAATI FREIGHTCARGO LTD. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Mobile Navigation Bar -->
     <nav class="mobile-nav">
         <a href="index.html" class="m-nav-item"><i class="fas fa-home"></i><span>Home</span></a>
         <a href="cars.html" class="m-nav-item active"><i class="fas fa-car"></i><span>Cars</span></a>
-        <a href="#" class="m-nav-item modal-trigger"><i class="fas fa-search-location"></i><span>Track</span></a>
+        <a href="#" class="m-nav-item modal-trigger" data-target="track-modal"><i class="fas fa-search-location"></i><span>Track</span></a>
         <a href="contact.html" class="m-nav-item"><i class="fas fa-headset"></i><span>Help</span></a>
     </nav>
 

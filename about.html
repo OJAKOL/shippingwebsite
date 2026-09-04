@@ -8,17 +8,16 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
-    <!-- Font Awesome for Marketplace Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
     <div class="top-bar">
         <div class="container">
-            <a href="index.html" class="orange-link"><i class="fas fa-certificate"></i> Certified Global Forwarder</a>
+            <a href="contact.html" class="orange-link"><i class="fas fa-certificate"></i> Certified Global Forwarder</a>
             <div class="nav-links">
                 <a href="index.html">Home</a>
                 <a href="contact.html">Help Center</a>
-                <a href="#" class="modal-trigger">Track Shipment</a>
+                <a href="#" class="modal-trigger">Track My Shipment</a>
             </div>
         </div>
     </div>
@@ -32,10 +31,16 @@
                 <button id="search-action-btn">SEARCH</button>
             </div>
             <div class="header-nav">
-                <a href="contact.html" class="nav-item">
-                    <i class="far fa-question-circle"></i>
-                    <span>Help</span>
-                </a>
+                <div class="nav-item dropdown">
+                    <i class="far fa-user"></i>
+                    <span>Account <i class="fas fa-chevron-down" style="font-size: 10px;"></i></span>
+                    <div class="dropdown-content">
+                        <a href="about.html">My Profile</a>
+                        <a href="contact.html">Active Quotes</a>
+                        <hr>
+                        <a href="contact.html" style="color: var(--jumia-orange); font-weight: bold; text-align: center;">LOG IN</a>
+                    </div>
+                </div>
                 <a href="contact.html" class="nav-item quote-btn-header">
                     <i class="fas fa-file-invoice-dollar"></i>
                     <span>Quotes</span>
@@ -49,39 +54,42 @@
         <div class="main-grid">
             <aside class="sidebar-menu">
                 <a href="about.html" style="color: var(--jumia-orange); font-weight: bold;"><i class="fas fa-info-circle"></i> Company Profile</a>
-                <a href="about.html"><i class="fas fa-network-wired"></i> Global Network</a>
-                <a href="about.html"><i class="fas fa-file-contract"></i> Terms of Service</a>
-                <a href="about.html"><i class="fas fa-user-shield"></i> Privacy Policy</a>
+                <a href="machinery.html"><i class="fas fa-industry"></i> Industrial Fleet</a>
+                <a href="contact.html"><i class="fas fa-globe"></i> Global Hubs</a>
+                <a href="#"><i class="fas fa-file-contract"></i> Freight Terms</a>
             </aside>
 
-            <section class="section-white" style="grid-column: span 2; padding: 20px;">
-                <div class="section-head blue">
+            <section class="section-white" style="grid-column: span 2; padding: 40px;">
+                <div class="section-title-bar blue">
                     <h2>OUR LOGISTICS HERITAGE</h2>
                 </div>
-                <div style="padding: 20px;">
-                    <p style="font-size: 16px; margin-bottom: 20px;">Established in 2010, <strong>ZAHAATI FREIGHTCARGO LTD</strong> has redefined global asset relocation. We specialize in the complex transit of vehicles, heavy-duty industrial machinery, and precision electronics.</p>
-                    <div class="about-story-grid">
-                        <img src="https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=600&q=80" style="border-radius: 8px; box-shadow: var(--shadow);" alt="Warehouse">
-                        <div>
-                            <h3 style="color: var(--navy); margin-bottom: 15px;">Why Choose ZAHAATI?</h3>
-                            <ul style="list-style: none; padding: 0;">
-                                <li style="margin-bottom: 10px;"><i class="fas fa-check-circle" style="color: green;"></i> Regulated IATA & Maritime Partner</li>
-                                <li style="margin-bottom: 10px;"><i class="fas fa-check-circle" style="color: green;"></i> Real-time End-to-End Visibility</li>
-                                <li style="margin-bottom: 10px;"><i class="fas fa-check-circle" style="color: green;"></i> Specialized Crating for High-Value Tech</li>
-                                <li style="margin-bottom: 10px;"><i class="fas fa-check-circle" style="color: green;"></i> Global Customs Clearance Assistance</li>
-                            </ul>
-                        </div>
+                <div class="about-story-grid">
+                    <div>
+                        <p style="font-size: 16px; margin-bottom: 20px; line-height: 1.8;">Established in 2010, <strong>ZAHAATI FREIGHTCARGO LTD</strong> has grown into a premier regulated freight forwarder. We don't just ship boxes; we move the world's most valuable assets including luxury vehicles, heavy industrial units, and precision medical tech.</p>
+                        <h3 style="color: var(--navy); margin: 25px 0 15px;">Global Reach, Local Expertise</h3>
+                        <ul class="qv-features" style="list-style:none; padding:0;">
+                            <li style="margin-bottom:12px;"><i class="fas fa-check-circle" style="color:var(--jumia-orange);"></i> Direct Ro-Ro routes to 50+ major ports.</li>
+                            <li style="margin-bottom:12px;"><i class="fas fa-check-circle" style="color:var(--jumia-orange);"></i> Climate-controlled air-freight containers.</li>
+                            <li style="margin-bottom:12px;"><i class="fas fa-check-circle" style="color:var(--jumia-orange);"></i> In-house customs clearing agents worldwide.</li>
+                        </ul>
                     </div>
+                    <img src="https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=600&q=80" style="border-radius: 8px; box-shadow: var(--shadow);" alt="ZAHAATI Operations">
                 </div>
             </section>
         </div>
     </main>
 
+    <footer>
+        <div class="container">
+            <p style="text-align: center; color: #cbd5e1; font-size: 12px; padding: 20px 0;">&copy; 2026 ZAHAATI FREIGHTCARGO LTD. Regulated IATA Partner.</p>
+        </div>
+    </footer>
+
     <nav class="mobile-nav">
         <a href="index.html" class="m-nav-item"><i class="fas fa-home"></i><span>Home</span></a>
         <a href="about.html" class="m-nav-item active"><i class="fas fa-info-circle"></i><span>About</span></a>
         <a href="#" class="m-nav-item modal-trigger"><i class="fas fa-search-location"></i><span>Track</span></a>
-        <a href="contact.html" class="m-nav-item"><i class="fas fa-headset"></i><span>Help</span></a>
+        <a href="contact.html" class="m-nav-item"><i class="fas fa-file-invoice"></i><span>Quote</span></a>
     </nav>
 
     <script src="script.js"></script>

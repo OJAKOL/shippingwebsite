@@ -1,209 +1,127 @@
 document.addEventListener('DOMContentLoaded', () => {
+    // --- 1. Global Data for Search Suggestions ---
+    const services = [
+        { name: 'Luxury Sedan Shipping', cat: 'vehicles', img: 'https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=50&q=80' },
+        { name: 'SUV & 4x4 Transport', cat: 'vehicles', img: 'https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?auto=format&fit=crop&w=50&q=80' },
+        { name: 'Heavy Duty Truck Freight', cat: 'vehicles', img: 'https://images.unsplash.com/photo-1562911791-c7a97b729ec5?auto=format&fit=crop&w=50&q=80' },
+        { name: 'Industrial Engine Logistics', cat: 'mechanics', img: 'https://images.unsplash.com/photo-1486262715619-67b85e0b08d3?auto=format&fit=crop&w=50&q=80' },
+        { name: 'Heavy Machinery Flat-Rack', cat: 'machinery', img: 'https://images.unsplash.com/photo-1579847611797-d463328e12f4?auto=format&fit=crop&w=50&q=80' },
+        { name: 'Medical Tech Shipping', cat: 'electronics', img: 'https://images.unsplash.com/photo-1581093588401-fbb62a02f120?auto=format&fit=crop&w=50&q=80' }
+    ];
 
-    // --- 1. Hero Slider Interactivity ---
-    let currentSlide = 0;
+    // --- 2. Hero Slider ---
+    let slideIdx = 0;
     const slides = document.querySelectorAll('.hero-slide');
     const dots = document.querySelectorAll('.dot');
 
-    function showSlide(n) {
+    function moveSlide(n) {
         if (slides.length === 0) return;
         slides.forEach(s => s.classList.remove('active'));
         dots.forEach(d => d.classList.remove('active'));
-        currentSlide = (n + slides.length) % slides.length;
-        slides[currentSlide].classList.add('active');
-        if (dots[currentSlide]) dots[currentSlide].classList.add('active');
+        slideIdx = (n + slides.length) % slides.length;
+        slides[slideIdx].classList.add('active');
+        if (dots[slideIdx]) dots[slideIdx].classList.add('active');
     }
+    if (slides.length > 0) setInterval(() => moveSlide(slideIdx + 1), 6000);
 
-    let sliderTimer = setInterval(() => showSlide(currentSlide + 1), 5000);
-
-    dots.forEach((dot, index) => {
-        dot.addEventListener('click', () => {
-            clearInterval(sliderTimer);
-            showSlide(index);
-            sliderTimer = setInterval(() => showSlide(currentSlide + 1), 5000);
-        });
-    });
-
-    // --- 2. Live Search & Service Filtering ---
+    // --- 3. Live Search Suggestions ---
     const searchInput = document.getElementById('main-search');
-    const searchBtn = document.getElementById('search-action-btn');
-    const items = document.querySelectorAll('#service-grid .item-card');
+    const suggestionBox = document.getElementById('search-suggestions');
 
-    function filterServices() {
-        const val = searchInput.value.toLowerCase();
-        items.forEach(item => {
-            const name = item.querySelector('.name').textContent.toLowerCase();
-            const cat = item.getAttribute('data-category') || '';
-            if (name.includes(val) || cat.toLowerCase().includes(val)) {
-                item.style.display = 'flex';
-            } else {
-                item.style.display = 'none';
+    if (searchInput) {
+        searchInput.addEventListener('input', (e) => {
+            const val = e.target.value.toLowerCase().trim();
+            suggestionBox.innerHTML = '';
+            if (val.length < 2) {
+                suggestionBox.style.display = 'none';
+                return;
+            }
+            const matches = services.filter(s => s.name.toLowerCase().includes(val));
+            if (matches.length > 0) {
+                matches.forEach(m => {
+                    const item = document.createElement('div');
+                    item.className = 'suggestion-item';
+                    item.innerHTML = `<img src="${m.img}"> <div><strong>${m.name}</strong><br><small>${m.cat}</small></div>`;
+                    item.onclick = () => window.location.href = 'contact.html?query=' + encodeURIComponent(m.name);
+                    suggestionBox.appendChild(item);
+                });
+                suggestionBox.style.display = 'block';
             }
         });
     }
 
-    if (searchInput) {
-        searchInput.addEventListener('input', filterServices);
-    }
-    if (searchBtn) {
-        searchBtn.addEventListener('click', filterServices);
-    }
-
-    // --- 3. Quotes "Cart" Interaction ---
-    let quoteCount = 0;
-    const countBadge = document.getElementById('cart-count');
+    // --- 4. Quote Request System ---
+    let quotes = parseInt(localStorage.getItem('zahaati_quotes')) || 0;
+    const badge = document.getElementById('cart-count');
+    if (badge) badge.textContent = quotes;
 
     document.querySelectorAll('.buy-btn').forEach(btn => {
         btn.addEventListener('click', (e) => {
             e.preventDefault();
-            e.stopPropagation();
-            quoteCount++;
-            if (countBadge) {
-                countBadge.textContent = quoteCount;
-                countBadge.style.display = 'flex';
-                countBadge.style.animation = 'bounce 0.4s';
-                setTimeout(() => countBadge.style.animation = '', 400);
+            quotes++;
+            localStorage.setItem('zahaati_quotes', quotes);
+            if (badge) {
+                badge.textContent = quotes;
+                badge.style.animation = 'bounceBadge 0.4s';
+                setTimeout(() => badge.style.animation = '', 400);
             }
-
-            // Visual feedback on button
-            const originalText = btn.textContent;
-            btn.textContent = 'ADDED';
-            btn.style.background = '#002e5b';
-            setTimeout(() => {
-                btn.textContent = originalText;
-                btn.style.background = '';
-            }, 1500);
-
-            showToast("Service added to your inquiry list!");
+            showToast("Service added to your request list!");
         });
     });
 
-    // --- 3b. Quick View Modal ---
-    const quickViewModal = document.getElementById('quick-view-modal');
-    const quickViewImage = document.getElementById('qv-img');
-    const quickViewName = document.getElementById('qv-name');
-    const quickViewPrice = document.getElementById('qv-price');
-
-    document.querySelectorAll('.quick-view-btn').forEach(btn => {
-        btn.addEventListener('click', (e) => {
-            e.preventDefault();
-            e.stopPropagation();
-
-            const card = btn.closest('.item-card');
-            const image = card?.querySelector('img');
-            const name = card?.querySelector('.name');
-            const price = card?.querySelector('.price');
-
-            if (!quickViewModal || !image || !name || !price) return;
-
-            quickViewImage.src = image.src;
-            quickViewImage.alt = image.alt;
-            quickViewName.textContent = name.textContent;
-            quickViewPrice.textContent = price.textContent;
-            quickViewModal.style.display = 'block';
-        });
-    });
-
-    // --- 4. Tracking Modal Logic ---
-    const trackModal = document.getElementById('track-modal');
-    const modalTrackBtn = document.getElementById('modal-track-btn');
-    const closeModals = document.querySelectorAll('.close-modal');
-    const trackingRecords = {
-        ZH123456: { status: 'Dispatched from Global Hub.', stage: 2 },
-        ZH654321: { status: 'In transit to destination port.', stage: 3 },
-        ZH202600: { status: 'Arrived at destination and ready for delivery.', stage: 4 }
-    };
+    // --- 5. Tracking Logic ---
+    const modal = document.getElementById('track-modal');
+    const modalInput = document.getElementById('modal-track-input');
+    const modalBtn = document.getElementById('modal-track-btn');
 
     document.querySelectorAll('.modal-trigger').forEach(trigger => {
-        trigger.addEventListener('click', (e) => {
-            e.preventDefault();
-            if (trackModal) trackModal.style.display = 'block';
-        });
+        trigger.onclick = (e) => { e.preventDefault(); modal.style.display = 'block'; };
     });
 
-    if (modalTrackBtn) {
-        modalTrackBtn.onclick = () => {
-            const num = document.getElementById('modal-track-input').value.trim();
-            if (num.length < 5) {
-                alert("Please enter a valid tracking number.");
-                return;
-            }
-            const trackingId = num.toUpperCase();
-            const record = trackingRecords[trackingId];
-            const statusBox = document.getElementById('track-status-result');
-            const statusText = document.getElementById('status-text');
-            if (statusBox && statusText) {
-                statusText.textContent = record
-                    ? `Tracking ID: ${trackingId} | Status: ${record.status}`
-                    : `Tracking ID: ${trackingId} was not found. Check the number and try again.`;
-                statusBox.style.display = 'block';
-
-                // Animate progress nodes
-                const nodes = document.querySelectorAll('.status-node');
-                nodes.forEach((n, i) => {
-                    n.classList.remove('active');
-                    if (record && i < record.stage) {
-                        setTimeout(() => n.classList.add('active'), i * 300);
-                    }
-                });
-            }
+    if (modalBtn) {
+        modalBtn.onclick = () => {
+            const id = modalInput.value.trim();
+            if (id.length < 5) return alert("Enter valid Tracking ID");
+            document.getElementById('status-text').innerHTML = `ID: <strong>${id.toUpperCase()}</strong> | Status: Dispatched`;
+            document.getElementById('track-status-result').style.display = 'block';
+            document.querySelectorAll('.status-node').forEach((n, i) => {
+                setTimeout(() => n.classList.add('active'), i * 300);
+            });
         };
     }
 
-    closeModals.forEach(c => {
+    // --- 6. Quick View ---
+    const qvModal = document.getElementById('quick-view-modal');
+    document.querySelectorAll('.quick-view-btn').forEach(btn => {
+        btn.onclick = () => {
+            const card = btn.closest('.item-card');
+            document.getElementById('qv-name').textContent = card.querySelector('.name').textContent;
+            document.getElementById('qv-price').textContent = card.querySelector('.price').textContent;
+            document.getElementById('qv-img').src = card.querySelector('img').src;
+            qvModal.style.display = 'block';
+        };
+    });
+
+    document.querySelectorAll('.close-modal').forEach(c => {
         c.onclick = () => {
-            const modal = c.closest('.modal');
-            if (modal) modal.style.display = 'none';
+            modal.style.display = 'none';
+            if (qvModal) qvModal.style.display = 'none';
         };
     });
 
-    // --- 5. Flash Deals Timer ---
-    function updateTimer() {
-        const timerEl = document.getElementById('flash-timer');
-        if (!timerEl) return;
-
-        const now = new Date();
-        const end = new Date();
-        end.setHours(23, 59, 59);
-        const diff = end - now;
-
-        const h = Math.floor(diff / 3600000);
-        const m = Math.floor((diff % 3600000) / 60000);
-        const s = Math.floor((diff % 60000) / 1000);
-
-        timerEl.textContent = `${h}h : ${m}m : ${s}s`;
-    }
-    setInterval(updateTimer, 1000);
-    updateTimer();
-
-    // --- Helper: Toast Notification ---
+    // --- Helpers ---
     function showToast(msg) {
-        const toast = document.createElement('div');
-        toast.className = 'toast-notify';
-        toast.textContent = msg;
-        document.body.appendChild(toast);
-        setTimeout(() => {
-            toast.style.opacity = '0';
-            setTimeout(() => toast.remove(), 500);
-        }, 3000);
-    }
-
-    // --- 6. Form Feedback ---
-    const subscribeForm = document.querySelector('.subscribe-form');
-    const subscribeEmail = document.getElementById('sub-email');
-    if (subscribeForm && subscribeEmail) {
-        subscribeForm.addEventListener('submit', (e) => {
-            e.preventDefault();
-            if (!subscribeEmail.checkValidity()) {
-                subscribeEmail.reportValidity();
-                return;
-            }
-            showToast('You are subscribed to route updates.');
-            subscribeForm.reset();
-        });
+        const t = document.createElement('div');
+        t.className = 'toast-notify';
+        t.innerHTML = `<i class="fas fa-check-circle"></i> ${msg}`;
+        document.body.appendChild(t);
+        setTimeout(() => { t.style.opacity = '0'; setTimeout(() => t.remove(), 500); }, 3000);
     }
 
     window.onclick = (e) => {
-        if (e.target.classList.contains('modal')) e.target.style.display = 'none';
-    }
+        if (e.target == modal || e.target == qvModal) {
+            modal.style.display = 'none';
+            if (qvModal) qvModal.style.display = 'none';
+        }
+    };
 });

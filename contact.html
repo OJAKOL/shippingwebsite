@@ -38,19 +38,19 @@
             <div class="header-nav">
                 <div class="nav-item dropdown">
                     <i class="far fa-user"></i>
-                    <span>Account <i class="fas fa-chevron-down" style="font-size: 10px;"></i></span>
+                    <span>Portal <i class="fas fa-chevron-down" style="font-size: 10px;"></i></span>
                     <div class="dropdown-content">
                         <a href="about.html">Profile</a>
                         <a href="contact.html">Active Quotes</a>
                         <hr>
-                        <a href="contact.html" style="color: var(--jumia-orange); font-weight: bold; text-align: center;">LOG IN</a>
+                        <a href="#" style="color: var(--jumia-orange); font-weight: bold; text-align: center;">LOG IN</a>
                     </div>
                 </div>
                 <a href="contact.html" class="nav-item">
                     <i class="far fa-question-circle"></i>
                     <span>Help</span>
                 </a>
-                <a href="contact.html" class="nav-item quote-btn-header">
+                <a href="contact.html" class="nav-item quote-btn-header" id="cart-counter-btn">
                     <i class="fas fa-file-invoice-dollar"></i>
                     <span>Quotes</span>
                     <span id="cart-count" class="cart-badge">0</span>
@@ -63,11 +63,11 @@
         <!-- Main Layout -->
         <div class="main-grid">
             <aside class="sidebar-menu">
-                <div style="padding: 10px 16px; font-weight: bold; border-bottom: 1px solid var(--border-color);">HELP CENTER</div>
-                <a href="mailto:ojakolcharlez@gmail.com" style="color: var(--jumia-orange); font-weight: bold;"><i class="fas fa-envelope"></i> Message Us</a>
-                <a href="tel:+97140000000"><i class="fas fa-phone"></i> Call Support</a>
-                <a href="https://www.google.com/maps/search/?api=1&query=123+Logistics+Tower+Dubai+UAE"><i class="fas fa-map-marker-alt"></i> Office Locations</a>
-                <a href="about.html"><i class="fas fa-file-pdf"></i> Shipping Docs</a>
+                <div style="padding: 10px 16px; font-weight: bold; color: var(--navy); border-bottom: 1px solid var(--border);">HELP CENTER</div>
+                <a href="#" style="color: var(--jumia-orange); font-weight: bold;"><i class="fas fa-envelope"></i> Message Us</a>
+                <a href="#"><i class="fas fa-phone"></i> Call Support</a>
+                <a href="#"><i class="fas fa-map-marker-alt"></i> Office Locations</a>
+                <a href="#"><i class="fas fa-file-pdf"></i> Shipping Docs</a>
                 <hr>
                 <a href="about.html"><i class="fas fa-question"></i> FAQs</a>
             </aside>
@@ -81,24 +81,21 @@
                     <!-- Contact Form -->
                     <div class="contact-form-container">
                         <p style="margin-bottom: 20px; color: var(--text-muted);">Please fill out the form below. Our freight specialists will respond with a custom quote within 24 hours.</p>
-                        <form id="marketplace-contact-form" action="https://formsubmit.co/ojakolcharlez@gmail.com" method="POST">
-                            <input type="hidden" name="_subject" value="New ZAHAATI shipping quote request">
-                            <input type="hidden" name="_template" value="table">
-                            <input type="hidden" name="_captcha" value="true">
+                        <form id="marketplace-contact-form">
                             <div class="contact-name-email">
                                 <div class="form-group">
-                                    <label for="full-name" style="display:block; margin-bottom:5px; font-weight:bold;">Full Name*</label>
-                                    <input id="full-name" type="text" name="full_name" placeholder="e.g. John Doe" style="width:100%; padding:12px; border:1px solid #ccc; border-radius:4px;" required>
+                                    <label style="display:block; margin-bottom:5px; font-weight:bold;">Full Name*</label>
+                                    <input type="text" placeholder="e.g. John Doe" style="width:100%; padding:12px; border:1px solid #ccc; border-radius:4px;" required>
                                 </div>
                                 <div class="form-group">
-                                    <label for="email-address" style="display:block; margin-bottom:5px; font-weight:bold;">Email Address*</label>
-                                    <input id="email-address" type="email" name="email" placeholder="e.g. john@business.com" style="width:100%; padding:12px; border:1px solid #ccc; border-radius:4px;" required>
+                                    <label style="display:block; margin-bottom:5px; font-weight:bold;">Email Address*</label>
+                                    <input type="email" placeholder="e.g. john@business.com" style="width:100%; padding:12px; border:1px solid #ccc; border-radius:4px;" required>
                                 </div>
                             </div>
 
                             <div class="form-group" style="margin-top:15px;">
-                                <label for="commodity-type" style="display:block; margin-bottom:5px; font-weight:bold;">Commodity Type</label>
-                                <select id="commodity-type" name="commodity_type" style="width:100%; padding:12px; border:1px solid #ccc; border-radius:4px;">
+                                <label style="display:block; margin-bottom:5px; font-weight:bold;">Commodity Type</label>
+                                <select style="width:100%; padding:12px; border:1px solid #ccc; border-radius:4px;">
                                     <option>Cars & Vehicles</option>
                                     <option>Mechanics & Parts</option>
                                     <option>Heavy Machinery</option>
@@ -108,8 +105,8 @@
                             </div>
 
                             <div class="form-group" style="margin-top:15px;">
-                                <label for="shipment-details" style="display:block; margin-bottom:5px; font-weight:bold;">Shipment Details*</label>
-                                <textarea id="shipment-details" name="shipment_details" placeholder="Describe origin, destination, and item specs..." style="width:100%; padding:12px; border:1px solid #ccc; border-radius:4px; height:120px;" required></textarea>
+                                <label style="display:block; margin-bottom:5px; font-weight:bold;">Shipment Details*</label>
+                                <textarea placeholder="Describe origin, destination, and item specs..." style="width:100%; padding:12px; border:1px solid #ccc; border-radius:4px; height:120px;" required></textarea>
                             </div>
 
                             <button type="submit" class="hero-btn" style="width:100%; margin-top:20px; border:none; cursor:pointer;">SEND REQUEST</button>
@@ -172,7 +169,7 @@
 
     <footer>
         <div class="container">
-            <p style="text-align: center; color: #9b9b9d; font-size: 12px; padding: 20px 0;">&copy; 2026 ZAHAATI FREIGHTCARGO LTD. All Rights Reserved.</p>
+            <p style="text-align: center; color: #cbd5e1; font-size: 12px; padding: 20px 0;">&copy; 2026 ZAHAATI FREIGHTCARGO LTD. All Rights Reserved.</p>
         </div>
     </footer>
 

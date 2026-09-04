@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Portal | ZAHAATI FREIGHTCARGO</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <a href="index.html" class="logo">ZAHAATI<span>FREIGHT</span></a>
+            <div class="search-container">
+                <i class="fas fa-search"></i>
+                <input type="text" id="main-search" placeholder="Search shipments, quotes...">
+                <button id="search-action-btn">SEARCH</button>
+            </div>
+            <div class="header-nav">
+                <a href="index.html" class="nav-item"><i class="fas fa-home"></i><span>Home</span></a>
+                <div class="nav-item dropdown">
+                    <i class="fas fa-user-circle"></i>
+                    <span>My Account <i class="fas fa-chevron-down" style="font-size: 10px;"></i></span>
+                    <div class="dropdown-content">
+                        <a href="dashboard.html">Shipments</a>
+                        <a href="contact.html">Support</a>
+                        <hr>
+                        <a href="index.html" style="color: red;">Logout</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="container">
+        <div class="main-grid">
+            <aside class="sidebar-menu">
+                <div style="padding: 10px 16px; font-weight: bold; color: var(--navy);">MY PORTAL</div>
+                <a href="#" class="active"><i class="fas fa-box"></i> Active Shipments</a>
+                <a href="#"><i class="fas fa-file-invoice"></i> My Quotes</a>
+                <a href="#"><i class="fas fa-address-book"></i> Addresses</a>
+                <a href="#"><i class="fas fa-user-cog"></i> Account Settings</a>
+                <hr>
+                <a href="contact.html"><i class="fas fa-headset"></i> Help Center</a>
+            </aside>
+
+            <section class="section-white" style="grid-column: span 2; padding: 20px;">
+                <div class="section-title-bar blue">
+                    <h2>ACTIVE SHIPMENTS</h2>
+                </div>
+
+                <div id="shipment-list" style="margin-top: 20px;">
+                    <!-- Shipment Card 1 -->
+                    <div class="side-card" style="margin-bottom: 15px; display: block; padding: 20px;">
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                            <div>
+                                <span style="font-size: 12px; color: var(--text-muted);">HBL / TRACKING:</span>
+                                <strong style="display: block; font-size: 16px;">ZH99887766</strong>
+                            </div>
+                            <div class="tag" style="background: #e1f5fe; color: #0288d1;">IN TRANSIT</div>
+                        </div>
+                        <div class="status-tracker">
+                            <div class="status-node active"><span><i class="fas fa-check"></i></span><br>Booking</div>
+                            <div class="status-node active"><span><i class="fas fa-check"></i></span><br>Port</div>
+                            <div class="status-node active"><span>3</span><br>Transit</div>
+                            <div class="status-node"><span>4</span><br>Arrival</div>
+                        </div>
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 20px; font-size: 13px;">
+                            <div><i class="fas fa-map-marker-alt" style="color: #ccc;"></i> Origin: <strong>Shanghai, China</strong></div>
+                            <div><i class="fas fa-flag-checkered" style="color: #ccc;"></i> Destination: <strong>Mombasa, Kenya</strong></div>
+                        </div>
+                    </div>
+
+                    <!-- Shipment Card 2 -->
+                    <div class="side-card" style="display: block; padding: 20px; opacity: 0.8;">
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                            <div>
+                                <span style="font-size: 12px; color: var(--text-muted);">HBL / TRACKING:</span>
+                                <strong style="display: block; font-size: 16px;">ZH22114455</strong>
+                            </div>
+                            <div class="tag" style="background: #e8f5e9; color: #2e7d32;">DELIVERED</div>
+                        </div>
+                        <p style="font-size: 13px;">Item: <strong>Toyota Land Cruiser V8</strong> - Delivered on 12 Jan 2026.</p>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <nav class="mobile-nav">
+        <a href="index.html" class="m-nav-item"><i class="fas fa-home"></i><span>Home</span></a>
+        <a href="dashboard.html" class="m-nav-item active"><i class="fas fa-box"></i><span>Portal</span></a>
+        <a href="#" class="m-nav-item modal-trigger"><i class="fas fa-search-location"></i><span>Track</span></a>
+        <a href="contact.html" class="m-nav-item"><i class="fas fa-headset"></i><span>Help</span></a>
+    </nav>
+
+    <script src="script.js"></script>
+</body>
+</html>

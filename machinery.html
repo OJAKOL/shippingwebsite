@@ -3,39 +3,55 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Heavy Machinery Shipping | ZAHAATI FREIGHTCARGO LTD</title>
+    <title>Industrial Machinery Logistics | ZAHAATI FREIGHTCARGO LTD</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
+    <!-- Font Awesome for Marketplace Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
+    <!-- Top Bar -->
     <div class="top-bar">
         <div class="container">
-            <a href="index.html" class="orange-link"><i class="fas fa-industry"></i> Industrial Logistics Specialists</a>
+            <a href="contact.html" class="orange-link"><i class="fas fa-industry"></i> Heavy Machinery Specialists</a>
             <div class="nav-links">
                 <a href="index.html">Home</a>
-                <a href="contact.html">Help Center</a>
+                <a href="about.html">About Us</a>
                 <a href="#" class="modal-trigger">Track My Shipment</a>
             </div>
         </div>
     </div>
 
+    <!-- Marketplace Header -->
     <header>
         <div class="container">
             <a href="index.html" class="logo">ZAHAATI<span>FREIGHT</span></a>
+
             <div class="search-container">
                 <i class="fas fa-search"></i>
-                <input type="text" id="main-search" placeholder="Search excavators, tractors, industrial equipment...">
+                <input type="text" id="main-search" autocomplete="off" placeholder="Search for excavators, tractors, plant machinery...">
                 <button id="search-action-btn">SEARCH</button>
+                <div id="search-suggestions" class="search-suggestions"></div>
             </div>
+
             <div class="header-nav">
+                <div class="nav-item dropdown">
+                    <i class="far fa-user"></i>
+                    <span>Account <i class="fas fa-chevron-down" style="font-size: 10px;"></i></span>
+                    <div class="dropdown-content">
+                        <a href="about.html"><i class="far fa-user"></i> My Profile</a>
+                        <a href="contact.html"><i class="fas fa-box"></i> My Shipments</a>
+                        <hr>
+                        <a href="contact.html" style="color: var(--jumia-orange); font-weight: bold; text-align: center;">SIGN IN</a>
+                    </div>
+                </div>
                 <a href="contact.html" class="nav-item">
                     <i class="far fa-question-circle"></i>
                     <span>Help</span>
                 </a>
-                <a href="contact.html" class="nav-item quote-btn-header">
+                <a href="contact.html" class="nav-item quote-btn-header" id="cart-counter-btn">
                     <i class="fas fa-file-invoice-dollar"></i>
                     <span>Quotes</span>
                     <span id="cart-count" class="cart-badge">0</span>
@@ -47,44 +63,112 @@
     <main class="container">
         <div class="main-grid">
             <aside class="sidebar-menu">
-                <div style="padding: 10px 16px; font-weight: bold; border-bottom: 1px solid var(--border-color);">MACHINERY</div>
-                <a href="machinery.html"><i class="fas fa-hard-hat"></i> Construction</a>
+                <div style="padding: 10px 16px; font-weight: bold; color: var(--navy); border-bottom: 1px solid var(--border);">INDUSTRIAL SECTORS</div>
+                <a href="machinery.html" class="active"><i class="fas fa-hard-hat"></i> Construction</a>
                 <a href="machinery.html"><i class="fas fa-seedling"></i> Agricultural</a>
                 <a href="machinery.html"><i class="fas fa-industry"></i> Manufacturing</a>
-                <a href="machinery.html"><i class="fas fa-mountain"></i> Mining Units</a>
+                <a href="machinery.html"><i class="fas fa-mountain"></i> Mining Gear</a>
+                <hr>
+                <div style="padding: 10px 16px; font-weight: bold;">SPECIAL HANDLING</div>
+                <a href="#"><i class="fas fa-vector-square"></i> Flat-Rack Loading</a>
+                <a href="#"><i class="fas fa-boxes"></i> Break-Bulk Services</a>
             </aside>
 
             <section class="section-white" style="grid-column: span 2;">
                 <div class="section-title-bar blue">
-                    <h2>HEAVY MACHINERY & INDUSTRIAL LOGISTICS</h2>
+                    <h2>HEAVY MACHINERY & PLANT LOGISTICS</h2>
                 </div>
                 <div class="items-grid" id="service-grid">
                     <div class="item-card" data-category="machinery">
                         <img src="https://images.unsplash.com/photo-1579847611797-d463328e12f4?auto=format&fit=crop&w=300&q=80" alt="Excavator">
-                        <div class="name">Construction Excavator & Bulldozer Shipping</div>
+                        <div class="name">Construction Excavator & Bulldozer Global Shipping</div>
                         <div class="price">Oversize Cargo</div>
-                        <div class="tag">FLAT-RACK</div>
-                        <button class="buy-btn">REQUEST QUOTE</button>
+                        <div class="tag">TOP DEAL</div>
+                        <div class="card-actions">
+                            <button class="quick-view-btn">QUICK VIEW</button>
+                            <button class="buy-btn">REQUEST</button>
+                        </div>
                     </div>
                     <div class="item-card" data-category="machinery">
                         <img src="https://images.unsplash.com/photo-1594488310342-88741349839f?auto=format&fit=crop&w=300&q=80" alt="Tractor">
-                        <div class="name">Agricultural Tractors & Harvester Freight</div>
-                        <div class="price">Global Transport</div>
-                        <div class="tag">FARM-TO-FARM</div>
-                        <button class="buy-btn">REQUEST QUOTE</button>
+                        <div class="name">Agricultural Tractors & Combine Harvester Freight</div>
+                        <div class="price">Ro-Ro & Container</div>
+                        <div class="tag">FARM-READY</div>
+                        <div class="card-actions">
+                            <button class="quick-view-btn">QUICK VIEW</button>
+                            <button class="buy-btn">REQUEST</button>
+                        </div>
                     </div>
                     <div class="item-card" data-category="machinery">
                         <img src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&w=300&q=80" alt="Industrial">
-                        <div class="name">Industrial Manufacturing Units (CNC/PLCs)</div>
-                        <div class="price">Factory to Factory</div>
-                        <div class="tag">PRECISION</div>
-                        <button class="buy-btn">REQUEST QUOTE</button>
+                        <div class="name">Industrial Manufacturing Units (CNC/Robotics)</div>
+                        <div class="price">Precision Transit</div>
+                        <div class="tag">SECURE</div>
+                        <div class="card-actions">
+                            <button class="quick-view-btn">QUICK VIEW</button>
+                            <button class="buy-btn">REQUEST</button>
+                        </div>
                     </div>
                 </div>
             </section>
         </div>
     </main>
 
+    <!-- Modals -->
+    <div id="track-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h3><i class="fas fa-shipping-fast" style="color: var(--jumia-orange);"></i> Track Your Shipment</h3>
+            <div class="track-form-modal">
+                <input type="text" id="modal-track-input" placeholder="Enter Tracking Number...">
+                <button id="modal-track-btn">TRACK</button>
+            </div>
+            <div id="track-status-result" style="display: none;">
+                <hr>
+                <p id="status-text"></p>
+                <div class="status-tracker">
+                    <div class="status-node" id="node-1"><span>1</span><br>Order</div>
+                    <div class="status-node" id="node-2"><span>2</span><br>Port</div>
+                    <div class="status-node" id="node-3"><span>3</span><br>Transit</div>
+                    <div class="status-node" id="node-4"><span>4</span><br>Arrival</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="quick-view-modal" class="modal">
+        <div class="modal-content qv-content">
+            <span class="close-modal close-qv">&times;</span>
+            <div class="qv-grid">
+                <div class="qv-image"><img id="qv-img" src="" alt="Service Image"></div>
+                <div class="qv-details">
+                    <h3 id="qv-name"></h3>
+                    <p class="qv-price" id="qv-price"></p>
+                    <p class="qv-desc">Elite crating and secure handling ensured for every heavy-duty shipment. We provide global logistics coverage with end-to-end transparency.</p>
+                    <hr>
+                    <ul class="qv-features">
+                        <li><i class="fas fa-check-circle"></i> Fully Insured Transit</li>
+                        <li><i class="fas fa-check-circle"></i> Real-time GPS Tracking</li>
+                    </ul>
+                    <button class="hero-btn buy-btn" id="qv-buy-btn">ADD TO REQUEST</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Floating WhatsApp Widget -->
+    <a href="https://wa.me/1234567890" class="whatsapp-float" target="_blank">
+        <i class="fab fa-whatsapp"></i>
+        <span>Chat with Us</span>
+    </a>
+
+    <footer>
+        <div class="container">
+            <p style="text-align: center; color: #cbd5e1; font-size: 12px; padding: 20px 0;">&copy; 2026 ZAHAATI FREIGHTCARGO LTD. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Mobile Navigation Bar -->
     <nav class="mobile-nav">
         <a href="index.html" class="m-nav-item"><i class="fas fa-home"></i><span>Home</span></a>
         <a href="machinery.html" class="m-nav-item active"><i class="fas fa-tractor"></i><span>Machinery</span></a>
