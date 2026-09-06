@@ -82,20 +82,21 @@
                     <div class="contact-form-container">
                         <p style="margin-bottom: 20px; color: var(--text-muted);">Please fill out the form below. Our freight specialists will respond with a custom quote within 24 hours.</p>
                         <form id="marketplace-contact-form">
+                            <div id="quote-form-status" class="form-status" role="status" aria-live="polite"></div>
                             <div class="contact-name-email">
                                 <div class="form-group">
                                     <label style="display:block; margin-bottom:5px; font-weight:bold;">Full Name*</label>
-                                    <input type="text" placeholder="e.g. John Doe" style="width:100%; padding:12px; border:1px solid #ccc; border-radius:4px;" required>
+                                    <input type="text" name="full_name" placeholder="e.g. John Doe" style="width:100%; padding:12px; border:1px solid #ccc; border-radius:4px;" required>
                                 </div>
                                 <div class="form-group">
                                     <label style="display:block; margin-bottom:5px; font-weight:bold;">Email Address*</label>
-                                    <input type="email" placeholder="e.g. john@business.com" style="width:100%; padding:12px; border:1px solid #ccc; border-radius:4px;" required>
+                                    <input type="email" name="email" placeholder="e.g. john@business.com" style="width:100%; padding:12px; border:1px solid #ccc; border-radius:4px;" required>
                                 </div>
                             </div>
 
                             <div class="form-group" style="margin-top:15px;">
                                 <label style="display:block; margin-bottom:5px; font-weight:bold;">Commodity Type</label>
-                                <select style="width:100%; padding:12px; border:1px solid #ccc; border-radius:4px;">
+                                <select name="commodity_type" title="Commodity type" style="width:100%; padding:12px; border:1px solid #ccc; border-radius:4px;">
                                     <option>Cars & Vehicles</option>
                                     <option>Mechanics & Parts</option>
                                     <option>Heavy Machinery</option>
@@ -106,7 +107,7 @@
 
                             <div class="form-group" style="margin-top:15px;">
                                 <label style="display:block; margin-bottom:5px; font-weight:bold;">Shipment Details*</label>
-                                <textarea placeholder="Describe origin, destination, and item specs..." style="width:100%; padding:12px; border:1px solid #ccc; border-radius:4px; height:120px;" required></textarea>
+                                <textarea name="shipment_details" placeholder="Describe origin, destination, and item specs..." style="width:100%; padding:12px; border:1px solid #ccc; border-radius:4px; height:120px;" required></textarea>
                             </div>
 
                             <button type="submit" class="hero-btn" style="width:100%; margin-top:20px; border:none; cursor:pointer;">SEND REQUEST</button>

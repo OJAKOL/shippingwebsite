@@ -1,4 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
+    const API_BASE = window.location.protocol === 'file:' ? 'http://localhost:3000/api' : '/api';
+
     // --- 1. Global Data for Search Suggestions ---
     const services = [
         { name: 'Luxury Sedan Shipping', cat: 'vehicles', img: 'https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=50&q=80' },
@@ -26,29 +28,86 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // --- 3. Live Search Suggestions ---
     const searchInput = document.getElementById('main-search');
-    const suggestionBox = document.getElementById('search-suggestions');
+    let suggestionBox = document.getElementById('search-suggestions');
+    let searchTimer;
+
+    if (searchInput && !suggestionBox) {
+        suggestionBox = document.createElement('div');
+        suggestionBox.id = 'search-suggestions';
+        suggestionBox.className = 'search-suggestions';
+        searchInput.closest('.search-container')?.appendChild(suggestionBox);
+    }
+
+    function renderSuggestions(matches, query) {
+        if (!suggestionBox) return;
+        suggestionBox.replaceChildren();
+        if (matches.length === 0) {
+            const empty = document.createElement('div');
+            empty.className = 'suggestion-empty';
+            empty.textContent = `No services found for “${query}”`;
+            suggestionBox.appendChild(empty);
+            suggestionBox.style.display = 'block';
+            return;
+        }
+
+        matches.forEach(service => {
+            const item = document.createElement('button');
+            item.type = 'button';
+            item.className = 'suggestion-item';
+            if (service.img || service.image_url) {
+                const image = document.createElement('img');
+                image.src = service.img || service.image_url;
+                image.alt = '';
+                item.appendChild(image);
+            }
+            const copy = document.createElement('span');
+            const name = document.createElement('strong');
+            name.textContent = service.name || service.title;
+            const category = document.createElement('small');
+            category.textContent = service.cat || service.category_name || 'Shipping service';
+            copy.append(name, category);
+            item.appendChild(copy);
+            item.addEventListener('click', () => {
+                window.location.href = 'contact.html?query=' + encodeURIComponent(name.textContent);
+            });
+            suggestionBox.appendChild(item);
+        });
+        suggestionBox.style.display = 'block';
+    }
+
+    async function findServices(query) {
+        try {
+            const response = await fetch(`${API_BASE}/services?q=${encodeURIComponent(query)}`);
+            if (!response.ok) throw new Error('Search request failed');
+            return await response.json();
+        } catch (error) {
+            return services.filter(service =>
+                `${service.name} ${service.cat}`.toLowerCase().includes(query.toLowerCase())
+            );
+        }
+    }
 
     if (searchInput) {
         searchInput.addEventListener('input', (e) => {
-            const val = e.target.value.toLowerCase().trim();
-            suggestionBox.innerHTML = '';
-            if (val.length < 2) {
-                suggestionBox.style.display = 'none';
+            const query = e.target.value.trim();
+            clearTimeout(searchTimer);
+            if (!suggestionBox || query.length < 2) {
+                if (suggestionBox) suggestionBox.style.display = 'none';
                 return;
             }
-            const matches = services.filter(s => s.name.toLowerCase().includes(val));
-            if (matches.length > 0) {
-                matches.forEach(m => {
-                    const item = document.createElement('div');
-                    item.className = 'suggestion-item';
-                    item.innerHTML = `<img src="${m.img}"> <div><strong>${m.name}</strong><br><small>${m.cat}</small></div>`;
-                    item.onclick = () => window.location.href = 'contact.html?query=' + encodeURIComponent(m.name);
-                    suggestionBox.appendChild(item);
-                });
-                suggestionBox.style.display = 'block';
-            }
+            searchTimer = setTimeout(async () => renderSuggestions(await findServices(query), query), 250);
         });
     }
+
+    document.getElementById('search-action-btn')?.addEventListener('click', () => {
+        const query = searchInput?.value.trim();
+        if (query) window.location.href = 'contact.html?query=' + encodeURIComponent(query);
+    });
+
+    searchInput?.addEventListener('keydown', (event) => {
+        if (event.key === 'Enter') document.getElementById('search-action-btn')?.click();
+        if (event.key === 'Escape' && suggestionBox) suggestionBox.style.display = 'none';
+    });
 
     // --- 4. Quote Request System ---
     let quotes = parseInt(localStorage.getItem('zahaati_quotes')) || 0;
@@ -79,18 +138,100 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     if (modalBtn) {
-        modalBtn.onclick = () => {
-            const id = modalInput.value.trim();
+        modalBtn.onclick = async () => {
+            const id = modalInput.value.trim().toUpperCase();
             if (id.length < 5) return alert("Enter valid Tracking ID");
-            document.getElementById('status-text').innerHTML = `ID: <strong>${id.toUpperCase()}</strong> | Status: Dispatched`;
-            document.getElementById('track-status-result').style.display = 'block';
-            document.querySelectorAll('.status-node').forEach((n, i) => {
-                setTimeout(() => n.classList.add('active'), i * 300);
-            });
+            try {
+                const response = await fetch(`${API_BASE}/track/${encodeURIComponent(id)}`);
+                if (!response.ok) throw new Error('Tracking number not found.');
+                const shipment = await response.json();
+                document.getElementById('status-text').textContent = `${shipment.tracking_number} | ${shipment.current_status}`;
+                document.getElementById('track-status-result').style.display = 'block';
+                document.querySelectorAll('.status-node').forEach((node, index) => {
+                    node.classList.toggle('active', index < shipment.tracking_stage);
+                });
+            } catch (error) {
+                alert(error.message);
+            }
         };
     }
 
-    // --- 6. Quick View ---
+    // --- 6. Dashboard Integration ---
+    const shipmentList = document.getElementById('shipment-list');
+    const dashboardSync = document.getElementById('dashboard-sync');
+
+    function renderShipments(shipments) {
+        if (!shipmentList) return;
+        shipmentList.replaceChildren();
+        if (shipments.length === 0) {
+            const empty = document.createElement('div');
+            empty.className = 'dashboard-state';
+            empty.textContent = 'No shipments are currently assigned to this portal.';
+            shipmentList.appendChild(empty);
+            return;
+        }
+
+        shipments.forEach(shipment => {
+            const card = document.createElement('article');
+            card.className = 'shipment-card';
+            const stage = Math.max(1, Math.min(4, Number(shipment.tracking_stage) || 1));
+            const status = shipment.current_status || 'In progress';
+            card.innerHTML = `
+                <div class="shipment-heading">
+                    <div><span class="shipment-label">HBL / TRACKING</span><strong>${shipment.tracking_number}</strong></div>
+                    <span class="shipment-status">${status}</span>
+                </div>
+                <div class="shipment-route"><span><i class="fas fa-map-marker-alt"></i>${shipment.origin || 'Origin pending'}</span><i class="fas fa-arrow-right"></i><span><i class="fas fa-flag-checkered"></i>${shipment.destination || 'Destination pending'}</span></div>
+                <div class="shipment-progress"><span style="width: ${stage * 25}%"></span></div>
+                <div class="shipment-meta"><span>${shipment.description || 'Freight shipment'}</span><span>Stage ${stage} of 4</span></div>`;
+            shipmentList.appendChild(card);
+        });
+    }
+
+    if (shipmentList) {
+        fetch(`${API_BASE}/shipments`)
+            .then(response => { if (!response.ok) throw new Error('Unable to load shipments.'); return response.json(); })
+            .then(shipments => { renderShipments(shipments); if (dashboardSync) dashboardSync.textContent = 'Live data'; })
+            .catch(error => { shipmentList.innerHTML = `<div class="dashboard-state error"><i class="fas fa-triangle-exclamation"></i> ${error.message} Start the server to view live shipments.</div>`; if (dashboardSync) dashboardSync.textContent = 'Offline'; });
+    }
+
+    // --- 7. Quote and newsletter submissions ---
+    const quoteForm = document.getElementById('marketplace-contact-form');
+    quoteForm?.addEventListener('submit', async (event) => {
+        event.preventDefault();
+        const status = document.getElementById('quote-form-status');
+        const values = new FormData(quoteForm);
+        const payload = {
+            full_name: values.get('full_name') || quoteForm.querySelector('input[type="text"]')?.value,
+            email: values.get('email') || quoteForm.querySelector('input[type="email"]')?.value,
+            commodity_type: values.get('commodity_type') || quoteForm.querySelector('select')?.value,
+            shipment_details: values.get('shipment_details') || quoteForm.querySelector('textarea')?.value
+        };
+        try {
+            const response = await fetch(`${API_BASE}/quotes`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
+            const result = await response.json();
+            if (!response.ok) throw new Error(result.error || 'Unable to submit request.');
+            status.textContent = 'Request received. A freight specialist will respond within 24 hours.';
+            status.className = 'form-status success';
+            quoteForm.reset();
+        } catch (error) {
+            status.textContent = error.message;
+            status.className = 'form-status error';
+        }
+    });
+
+    document.getElementById('sub-submit')?.addEventListener('click', async () => {
+        const input = document.getElementById('sub-email');
+        if (!input?.value) return;
+        try {
+            const response = await fetch(`${API_BASE}/subscribe`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ email: input.value }) });
+            if (!response.ok) throw new Error('Unable to subscribe.');
+            input.value = '';
+            showToast('Subscription confirmed.');
+        } catch (error) { showToast(error.message); }
+    });
+
+    // --- 8. Quick View ---
     const qvModal = document.getElementById('quick-view-modal');
     document.querySelectorAll('.quick-view-btn').forEach(btn => {
         btn.onclick = () => {
@@ -104,7 +245,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     document.querySelectorAll('.close-modal').forEach(c => {
         c.onclick = () => {
-            modal.style.display = 'none';
+            if (modal) modal.style.display = 'none';
             if (qvModal) qvModal.style.display = 'none';
         };
     });
@@ -120,7 +261,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     window.onclick = (e) => {
         if (e.target == modal || e.target == qvModal) {
-            modal.style.display = 'none';
+            if (modal) modal.style.display = 'none';
             if (qvModal) qvModal.style.display = 'none';
         }
     };

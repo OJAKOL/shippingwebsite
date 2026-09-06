@@ -70,8 +70,35 @@ CREATE TABLE IF NOT EXISTS newsletter_subs (
 );
 
 -- Insert Initial Categories
-INSERT INTO categories (name, slug) VALUES
+INSERT IGNORE INTO categories (name, slug) VALUES
 ('Cars & Vehicles', 'vehicles'),
 ('Mechanics & Parts', 'mechanics'),
 ('Heavy Machinery', 'machinery'),
 ('Electronics', 'electronics');
+
+-- Demo catalog records for local development and search testing
+INSERT INTO services (category_id, title, description, price_indicator, image_url, tag)
+SELECT c.id, 'Luxury Sedan Enclosed Container (FCL)', 'White-glove vehicle shipping with secure enclosed handling.', 'Request a quote', 'https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=400&q=80', 'SECURE LOAD'
+FROM categories c WHERE c.slug = 'vehicles'
+    AND NOT EXISTS (SELECT 1 FROM services WHERE title = 'Luxury Sedan Enclosed Container (FCL)');
+
+INSERT INTO services (category_id, title, description, price_indicator, image_url, tag)
+SELECT c.id, 'Industrial Grade Crated Engine Freight', 'Protected freight handling for engines, gearboxes, and critical spares.', 'Request a quote', 'https://images.unsplash.com/photo-1486262715619-67b85e0b08d3?auto=format&fit=crop&w=400&q=80', 'CRITICAL'
+FROM categories c WHERE c.slug = 'mechanics'
+    AND NOT EXISTS (SELECT 1 FROM services WHERE title = 'Industrial Grade Crated Engine Freight');
+
+INSERT INTO services (category_id, title, description, price_indicator, image_url, tag)
+SELECT c.id, 'Oversize Construction Machinery (Flat-Rack)', 'Out-of-gauge planning and flat-rack transport for heavy equipment.', 'Request a quote', 'https://images.unsplash.com/photo-1579847611797-d463328e12f4?auto=format&fit=crop&w=400&q=80', 'OUT-OF-GAUGE'
+FROM categories c WHERE c.slug = 'machinery'
+    AND NOT EXISTS (SELECT 1 FROM services WHERE title = 'Oversize Construction Machinery (Flat-Rack)');
+
+INSERT INTO services (category_id, title, description, price_indicator, image_url, tag)
+SELECT c.id, 'Sensitive IT & Medical Tech Logistics', 'Climate-conscious logistics for sensitive electronics and medical equipment.', 'Request a quote', 'https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=400&q=80', 'PRECISION'
+FROM categories c WHERE c.slug = 'electronics'
+    AND NOT EXISTS (SELECT 1 FROM services WHERE title = 'Sensitive IT & Medical Tech Logistics');
+
+-- Demo shipments for the portal and tracking modal
+INSERT IGNORE INTO shipments (tracking_number, description, current_status, tracking_stage, origin, destination, estimated_arrival)
+VALUES
+('ZH99887766', 'Luxury vehicle shipment', 'In transit', 3, 'Shanghai, China', 'Mombasa, Kenya', '2026-10-14'),
+('ZH22114455', 'Toyota Land Cruiser V8', 'Delivered', 4, 'Dubai, UAE', 'Lagos, Nigeria', '2026-01-12');
