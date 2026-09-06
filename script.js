@@ -109,7 +109,27 @@ document.addEventListener('DOMContentLoaded', () => {
         if (event.key === 'Escape' && suggestionBox) suggestionBox.style.display = 'none';
     });
 
-    // --- 4. Quote Request System ---
+    // --- 4. Account Dropdowns ---
+    document.querySelectorAll('.dropdown').forEach(dropdown => {
+        dropdown.setAttribute('aria-expanded', 'false');
+        dropdown.addEventListener('click', (event) => {
+            if (event.target.closest('.dropdown-content')) return;
+            event.preventDefault();
+            const isOpen = dropdown.classList.toggle('open');
+            dropdown.setAttribute('aria-expanded', String(isOpen));
+        });
+    });
+
+    document.addEventListener('click', (event) => {
+        document.querySelectorAll('.dropdown.open').forEach(dropdown => {
+            if (!dropdown.contains(event.target)) {
+                dropdown.classList.remove('open');
+                dropdown.setAttribute('aria-expanded', 'false');
+            }
+        });
+    });
+
+    // --- 5. Quote Request System ---
     let quotes = parseInt(localStorage.getItem('zahaati_quotes')) || 0;
     const badge = document.getElementById('cart-count');
     if (badge) badge.textContent = quotes;

@@ -228,6 +228,7 @@ header .container {
     border: 1px solid var(--border);
 }
 .dropdown:hover .dropdown-content { display: block; }
+.dropdown.open .dropdown-content { display: block; }
 .dropdown-content a { display: flex; align-items: center; gap: 10px; padding: 12px 20px; font-size: 14px; }
 .dropdown-content a:hover { background-color: var(--bg-gray); color: var(--jumia-orange); }
 
@@ -585,6 +586,7 @@ footer {
     .logo { font-size: 22px; }
     .search-container { order: 3; width: 100%; }
     .header-nav .nav-item span { display: none; }
+    .header-nav .dropdown-content { top: calc(100% + 8px); right: -8px; min-width: 220px; }
     .main-grid { grid-template-columns: 1fr; margin-top: 12px; }
     .hero-wrapper { height: 220px; }
     .hero-slide { padding: 24px; }
