@@ -475,6 +475,20 @@ header .container {
 .form-status { min-height: 20px; margin-bottom: 12px; font-size: 13px; font-weight: 700; }
 .form-status.success { color: #177245; }
 .form-status.error { color: #a94442; }
+.auth-panel { text-align: center; }
+.auth-panel h3 { color: var(--navy); font-family: 'Space Grotesk', sans-serif; font-size: 24px; }
+.auth-intro { color: var(--text-muted); font-size: 13px; margin: 8px 0 20px; }
+.auth-tabs { display: flex; gap: 8px; border-bottom: 1px solid var(--border); margin-bottom: 18px; }
+.auth-tab { flex: 1; background: transparent; border: 0; border-bottom: 3px solid transparent; color: var(--text-muted); cursor: pointer; font-size: 11px; font-weight: 800; padding: 10px 6px; }
+.auth-tab.active { border-bottom-color: var(--jumia-orange); color: var(--navy); }
+.auth-form { display: grid; gap: 8px; text-align: left; }
+.auth-form label { color: var(--navy); font-size: 12px; font-weight: 800; }
+.auth-form label span { color: var(--text-muted); font-weight: 500; }
+.auth-form input { border: 1px solid #c5d1da; border-radius: 6px; font: inherit; margin-bottom: 8px; padding: 12px; }
+.auth-form input:focus { border-color: var(--jumia-orange); outline: 2px solid rgba(246, 139, 30, 0.15); }
+.auth-submit { border: 0; cursor: pointer; margin-top: 8px; width: 100%; }
+.auth-menu-trigger { background: transparent; border: 0; color: var(--text-black); cursor: pointer; display: flex; font: inherit; gap: 10px; padding: 12px 20px; text-align: left; width: 100%; }
+.auth-menu-trigger:hover { background: var(--bg-gray); color: var(--jumia-orange); }
 
 .countdown-timer { font-size: 16px; background: rgba(0,0,0,0.15); padding: 4px 12px; border-radius: 4px; font-weight: 800; font-family: 'Space Grotesk', monospace; }
 

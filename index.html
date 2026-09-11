@@ -207,16 +207,35 @@
     </main>
 
     <!-- Modals (Tracking, QuickView, Login) -->
-    <div id="login-modal" class="modal">
+    <div id="auth-modal" class="modal" role="dialog" aria-modal="true" aria-labelledby="auth-title">
         <div class="modal-content">
-            <span class="close-modal">&times;</span>
-            <div style="text-align: center;">
-                <h3><i class="fas fa-user-lock"></i> Client Portal Access</h3>
-                <p style="font-size: 13px; margin-bottom: 20px;">Manage your active shipments and quotes.</p>
-                <input type="email" placeholder="Email Address" style="width:100%; padding:12px; margin-bottom:10px; border:1px solid #ccc; border-radius:4px;">
-                <input type="password" placeholder="Password" style="width:100%; padding:12px; margin-bottom:20px; border:1px solid #ccc; border-radius:4px;">
-                <button class="hero-btn" style="width:100%; border:none; cursor:pointer;">SIGN IN</button>
-                <p style="margin-top:15px; font-size:12px;">New shipper? <a href="#" style="color:var(--jumia-orange);">Create a business account</a></p>
+            <button class="close-modal" type="button" aria-label="Close account dialog">&times;</button>
+            <div class="auth-panel">
+                <h3 id="auth-title"><i class="fas fa-user-lock"></i> Client Portal Access</h3>
+                <p class="auth-intro">Manage your shipments and quote requests securely.</p>
+                <div class="auth-tabs" role="tablist" aria-label="Account access mode">
+                    <button type="button" role="tab" aria-selected="true" class="auth-tab active" data-auth-mode="login">SIGN IN</button>
+                    <button type="button" role="tab" aria-selected="false" class="auth-tab" data-auth-mode="signup">CREATE ACCOUNT</button>
+                </div>
+                <div id="auth-form-status" class="form-status" role="status" aria-live="polite"></div>
+                <form id="login-form" class="auth-form">
+                    <label for="login-email">Email address</label>
+                    <input id="login-email" name="email" type="email" autocomplete="email" required>
+                    <label for="login-password">Password</label>
+                    <input id="login-password" name="password" type="password" autocomplete="current-password" required>
+                    <button class="hero-btn auth-submit" type="submit">SIGN IN</button>
+                </form>
+                <form id="signup-form" class="auth-form" hidden>
+                    <label for="signup-name">Full name</label>
+                    <input id="signup-name" name="full_name" type="text" autocomplete="name" required>
+                    <label for="signup-email">Email address</label>
+                    <input id="signup-email" name="email" type="email" autocomplete="email" required>
+                    <label for="signup-company">Company name <span>(optional)</span></label>
+                    <input id="signup-company" name="company_name" type="text" autocomplete="organization">
+                    <label for="signup-password">Password <span>(8 characters minimum)</span></label>
+                    <input id="signup-password" name="password" type="password" autocomplete="new-password" minlength="8" required>
+                    <button class="hero-btn auth-submit" type="submit">CREATE ACCOUNT</button>
+                </form>
             </div>
         </div>
     </div>

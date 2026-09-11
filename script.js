@@ -132,12 +132,100 @@ document.addEventListener('DOMContentLoaded', () => {
     // --- 4. Account Dropdowns ---
     document.querySelectorAll('.dropdown').forEach(dropdown => {
         dropdown.setAttribute('aria-expanded', 'false');
+        const authTrigger = document.createElement('button');
+        authTrigger.type = 'button';
+        authTrigger.className = 'auth-menu-trigger';
+        authTrigger.innerHTML = '<i class="fas fa-user-lock"></i> SIGN IN / SIGN UP';
+        authTrigger.addEventListener('click', (event) => {
+            event.stopPropagation();
+            openAuthModal('login');
+        });
+        const divider = dropdown.querySelector('.dropdown-content hr');
+        if (divider) divider.before(authTrigger);
+        else dropdown.querySelector('.dropdown-content')?.prepend(authTrigger);
         dropdown.addEventListener('click', (event) => {
             if (event.target.closest('.dropdown-content')) return;
             event.preventDefault();
             const isOpen = dropdown.classList.toggle('open');
             dropdown.setAttribute('aria-expanded', String(isOpen));
         });
+    });
+
+    function getAuthModal() {
+        let authModal = document.getElementById('auth-modal');
+        if (authModal) return authModal;
+        authModal = document.createElement('div');
+        authModal.id = 'auth-modal';
+        authModal.className = 'modal';
+        authModal.setAttribute('role', 'dialog');
+        authModal.setAttribute('aria-modal', 'true');
+        authModal.innerHTML = `
+            <div class="modal-content"><button class="close-modal" type="button" aria-label="Close account dialog">&times;</button>
+                <div class="auth-panel"><h3 id="auth-title"><i class="fas fa-user-lock"></i> Client Portal Access</h3>
+                <p class="auth-intro">Manage your shipments and quote requests securely.</p>
+                <div class="auth-tabs" role="tablist" aria-label="Account access mode"><button type="button" role="tab" aria-selected="true" class="auth-tab active" data-auth-mode="login">SIGN IN</button><button type="button" role="tab" aria-selected="false" class="auth-tab" data-auth-mode="signup">CREATE ACCOUNT</button></div>
+                <div id="auth-form-status" class="form-status" role="status" aria-live="polite"></div>
+                <form id="login-form" class="auth-form"><label for="login-email">Email address</label><input id="login-email" name="email" type="email" autocomplete="email" required><label for="login-password">Password</label><input id="login-password" name="password" type="password" autocomplete="current-password" required><button class="hero-btn auth-submit" type="submit">SIGN IN</button></form>
+                <form id="signup-form" class="auth-form" hidden><label for="signup-name">Full name</label><input id="signup-name" name="full_name" type="text" autocomplete="name" required><label for="signup-email">Email address</label><input id="signup-email" name="email" type="email" autocomplete="email" required><label for="signup-company">Company name <span>(optional)</span></label><input id="signup-company" name="company_name" type="text" autocomplete="organization"><label for="signup-password">Password <span>(8 characters minimum)</span></label><input id="signup-password" name="password" type="password" autocomplete="new-password" minlength="8" required><button class="hero-btn auth-submit" type="submit">CREATE ACCOUNT</button></form></div>
+            </div>`;
+        document.body.appendChild(authModal);
+        return authModal;
+    }
+
+    function openAuthModal(mode = 'login') {
+        const authModal = getAuthModal();
+        authModal.style.display = 'block';
+        authModal.querySelector(`[data-auth-mode="${mode}"]`)?.click();
+    }
+
+    document.getElementById('mobile-login-btn')?.addEventListener('click', (event) => {
+        event.preventDefault();
+        openAuthModal('login');
+    });
+
+    document.addEventListener('click', (event) => {
+        const tab = event.target.closest('.auth-tab');
+        if (!tab) return;
+        const mode = tab.dataset.authMode;
+        document.querySelectorAll('.auth-tab').forEach(item => {
+            const active = item === tab;
+            item.classList.toggle('active', active);
+            item.setAttribute('aria-selected', String(active));
+        });
+        document.getElementById('login-form')?.toggleAttribute('hidden', mode !== 'login');
+        document.getElementById('signup-form')?.toggleAttribute('hidden', mode !== 'signup');
+        const status = document.getElementById('auth-form-status');
+        if (status) status.textContent = '';
+    });
+
+    document.addEventListener('click', (event) => {
+        if (event.target.closest('[data-auth-mode]')) return;
+        if (event.target.closest('#auth-modal .close-modal')) document.getElementById('auth-modal').style.display = 'none';
+        if (event.target.closest('[href="index.html"]')?.textContent.includes('Logout')) {
+            event.preventDefault();
+            fetch(`${API_BASE}/auth/logout`, { method: 'POST', credentials: 'include' }).finally(() => { window.location.href = 'index.html'; });
+        }
+    });
+
+    async function submitAuthForm(form, endpoint, successMessage) {
+        const status = document.getElementById('auth-form-status');
+        const payload = Object.fromEntries(new FormData(form));
+        try {
+            const response = await fetch(`${API_BASE}/auth/${endpoint}`, { method: 'POST', credentials: 'include', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
+            const result = await response.json();
+            if (!response.ok) throw new Error(result.error || 'Authentication failed.');
+            status.textContent = successMessage;
+            status.className = 'form-status success';
+            setTimeout(() => { window.location.href = 'dashboard.html'; }, 500);
+        } catch (error) {
+            status.textContent = error.message;
+            status.className = 'form-status error';
+        }
+    }
+
+    document.addEventListener('submit', (event) => {
+        if (event.target.id === 'login-form') { event.preventDefault(); submitAuthForm(event.target, 'login', 'Signed in. Opening your portal...'); }
+        if (event.target.id === 'signup-form') { event.preventDefault(); submitAuthForm(event.target, 'signup', 'Account created. Opening your portal...'); }
     });
 
     document.addEventListener('click', (event) => {
@@ -192,7 +280,12 @@ document.addEventListener('DOMContentLoaded', () => {
     const modalBtn = document.getElementById('modal-track-btn');
 
     document.querySelectorAll('.modal-trigger').forEach(trigger => {
-        trigger.onclick = (e) => { e.preventDefault(); modal.style.display = 'block'; };
+        trigger.onclick = (e) => {
+            e.preventDefault();
+            const targetId = trigger.dataset.target || 'track-modal';
+            const targetModal = document.getElementById(targetId);
+            if (targetModal) targetModal.style.display = 'block';
+        };
     });
 
     if (modalBtn) {
@@ -204,7 +297,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (!response.ok) throw new Error('Tracking number not found.');
                 const shipment = await response.json();
                 document.getElementById('status-text').textContent = `${shipment.tracking_number} | ${shipment.current_status}`;
-                document.getElementById('track-status-result').style.display = 'block';
+                const result = document.getElementById('track-status-result');
+                result.hidden = false;
                 document.querySelectorAll('.status-node').forEach((node, index) => {
                     node.classList.toggle('active', index < shipment.tracking_stage);
                 });
@@ -260,7 +354,9 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     if (shipmentList) {
-        fetch(`${API_BASE}/shipments`)
+        fetch(`${API_BASE}/auth/me`, { credentials: 'include' })
+            .then(response => { if (response.status === 401) { window.location.href = 'index.html'; throw new Error('Please sign in to view your portal.'); } if (!response.ok) throw new Error('Unable to verify your session.'); return response.json(); })
+            .then(() => fetch(`${API_BASE}/shipments`, { credentials: 'include' }))
             .then(response => { if (!response.ok) throw new Error('Unable to load shipments.'); return response.json(); })
             .then(shipments => { renderShipments(shipments); if (dashboardSync) dashboardSync.textContent = 'Live data'; })
             .catch(error => { shipmentList.innerHTML = `<div class="dashboard-state error"><i class="fas fa-triangle-exclamation"></i> ${error.message} Start the server to view live shipments.</div>`; if (dashboardSync) dashboardSync.textContent = 'Offline'; });

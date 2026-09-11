@@ -68,9 +68,31 @@
     <nav class="mobile-nav">
         <a href="index.html" class="m-nav-item"><i class="fas fa-home"></i><span>Home</span></a>
         <a href="dashboard.html" class="m-nav-item active"><i class="fas fa-box"></i><span>Portal</span></a>
-        <a href="#" class="m-nav-item modal-trigger"><i class="fas fa-search-location"></i><span>Track</span></a>
+        <a href="#" class="m-nav-item modal-trigger" data-target="track-modal"><i class="fas fa-search-location"></i><span>Track</span></a>
         <a href="contact.html" class="m-nav-item"><i class="fas fa-headset"></i><span>Help</span></a>
     </nav>
+
+    <div id="track-modal" class="modal" role="dialog" aria-modal="true" aria-labelledby="dashboard-track-title">
+        <div class="modal-content">
+            <button class="close-modal" type="button" aria-label="Close tracking dialog">&times;</button>
+            <h3 id="dashboard-track-title"><i class="fas fa-search-location"></i> Track Your Shipment</h3>
+            <div class="track-form-modal">
+                <label class="sr-only" for="modal-track-input">Tracking number</label>
+                <input type="text" id="modal-track-input" placeholder="Enter Tracking ID (e.g., ZH123456)">
+                <button id="modal-track-btn" type="button">TRACK</button>
+            </div>
+            <div id="track-status-result" hidden>
+                <hr>
+                <p id="status-text"></p>
+                <div class="status-tracker">
+                    <div class="status-node" id="node-1"><span>1</span><br>Booking</div>
+                    <div class="status-node" id="node-2"><span>2</span><br>Port</div>
+                    <div class="status-node" id="node-3"><span>3</span><br>Transit</div>
+                    <div class="status-node" id="node-4"><span>4</span><br>Arrival</div>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <script src="script.js"></script>
 </body>
