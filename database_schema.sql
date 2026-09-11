@@ -88,7 +88,7 @@ FROM categories c WHERE c.slug = 'mechanics'
     AND NOT EXISTS (SELECT 1 FROM services WHERE title = 'Industrial Grade Crated Engine Freight');
 
 INSERT INTO services (category_id, title, description, price_indicator, image_url, tag)
-SELECT c.id, 'Oversize Construction Machinery (Flat-Rack)', 'Out-of-gauge planning and flat-rack transport for heavy equipment.', 'Request a quote', 'https://images.unsplash.com/photo-1579847611797-d463328e12f4?auto=format&fit=crop&w=400&q=80', 'OUT-OF-GAUGE'
+SELECT c.id, 'Oversize Construction Machinery (Flat-Rack)', 'Out-of-gauge planning and flat-rack transport for heavy equipment.', 'Request a quote', 'https://images.unsplash.com/photo-1581092160607-ee22621dd758?auto=format&fit=crop&w=400&q=80', 'OUT-OF-GAUGE'
 FROM categories c WHERE c.slug = 'machinery'
     AND NOT EXISTS (SELECT 1 FROM services WHERE title = 'Oversize Construction Machinery (Flat-Rack)');
 

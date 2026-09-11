@@ -154,19 +154,37 @@ document.addEventListener('DOMContentLoaded', () => {
     const badge = document.getElementById('cart-count');
     if (badge) badge.textContent = quotes;
 
+    function addRequest(serviceName) {
+        const requestItems = JSON.parse(localStorage.getItem('zahaati_request_items') || '[]');
+        requestItems.push({ name: serviceName, addedAt: new Date().toISOString() });
+        localStorage.setItem('zahaati_request_items', JSON.stringify(requestItems));
+        quotes++;
+        localStorage.setItem('zahaati_quotes', quotes);
+        if (badge) {
+            badge.textContent = quotes;
+            badge.style.animation = 'bounceBadge 0.4s';
+            setTimeout(() => badge.style.animation = '', 400);
+        }
+        window.location.href = 'contact.html?service=' + encodeURIComponent(serviceName);
+    }
+
     document.querySelectorAll('.buy-btn').forEach(btn => {
         btn.addEventListener('click', (e) => {
             e.preventDefault();
-            quotes++;
-            localStorage.setItem('zahaati_quotes', quotes);
-            if (badge) {
-                badge.textContent = quotes;
-                badge.style.animation = 'bounceBadge 0.4s';
-                setTimeout(() => badge.style.animation = '', 400);
-            }
-            showToast("Service added to your request list!");
+            const card = btn.closest('.item-card');
+            const serviceName = card?.querySelector('.name')?.textContent.trim()
+                || document.getElementById('qv-name')?.textContent.trim()
+                || 'Freight service';
+            addRequest(serviceName);
         });
     });
+
+    const requestedService = new URLSearchParams(window.location.search).get('service');
+    const shipmentDetails = document.querySelector('[name="shipment_details"]');
+    if (requestedService && shipmentDetails) {
+        shipmentDetails.value = `I would like a quote for: ${requestedService}\n\nOrigin and destination: `;
+        shipmentDetails.focus();
+    }
 
     // --- 5. Tracking Logic ---
     const modal = document.getElementById('track-modal');
