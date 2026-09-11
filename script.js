@@ -216,12 +216,25 @@ document.addEventListener('DOMContentLoaded', () => {
             card.className = 'shipment-card';
             const stage = Math.max(1, Math.min(4, Number(shipment.tracking_stage) || 1));
             const status = shipment.current_status || 'In progress';
+            const description = (shipment.description || '').toLowerCase();
+            const image = description.includes('vehicle') || description.includes('car')
+                ? 'https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=320&q=80'
+                : description.includes('machinery') || description.includes('equipment')
+                    ? 'https://images.unsplash.com/photo-1579847611797-d463328e12f4?auto=format&fit=crop&w=320&q=80'
+                    : description.includes('electronic') || description.includes('medical')
+                        ? 'https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=320&q=80'
+                        : 'https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=320&q=80';
             card.innerHTML = `
-                <div class="shipment-heading">
-                    <div><span class="shipment-label">HBL / TRACKING</span><strong>${shipment.tracking_number}</strong></div>
-                    <span class="shipment-status">${status}</span>
+                <div class="shipment-card-top">
+                    <img class="shipment-image" src="${image}" alt="${shipment.description || 'Freight shipment'}">
+                    <div class="shipment-card-content">
+                        <div class="shipment-heading">
+                            <div><span class="shipment-label">HBL / TRACKING</span><strong>${shipment.tracking_number}</strong></div>
+                            <span class="shipment-status">${status}</span>
+                        </div>
+                        <div class="shipment-route"><span><i class="fas fa-map-marker-alt"></i>${shipment.origin || 'Origin pending'}</span><i class="fas fa-arrow-right"></i><span><i class="fas fa-flag-checkered"></i>${shipment.destination || 'Destination pending'}</span></div>
+                    </div>
                 </div>
-                <div class="shipment-route"><span><i class="fas fa-map-marker-alt"></i>${shipment.origin || 'Origin pending'}</span><i class="fas fa-arrow-right"></i><span><i class="fas fa-flag-checkered"></i>${shipment.destination || 'Destination pending'}</span></div>
                 <div class="shipment-progress"><span style="width: ${stage * 25}%"></span></div>
                 <div class="shipment-meta"><span>${shipment.description || 'Freight shipment'}</span><span>Stage ${stage} of 4</span></div>`;
             shipmentList.appendChild(card);

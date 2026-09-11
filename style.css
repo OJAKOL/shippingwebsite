@@ -455,6 +455,9 @@ header .container {
 .shipment-list { display: grid; gap: 14px; margin-top: 20px; }
 .shipment-card { border: 1px solid var(--border); border-radius: 8px; padding: 20px; background: linear-gradient(135deg, #fff 0%, #f8fbfd 100%); transition: 0.25s ease; }
 .shipment-card:hover { border-color: #aac4d3; box-shadow: var(--shadow-hover); transform: translateY(-2px); }
+.shipment-card-top { display: flex; align-items: stretch; gap: 18px; }
+.shipment-image { width: 128px; min-height: 112px; object-fit: cover; border-radius: 6px; flex-shrink: 0; }
+.shipment-card-content { flex: 1; min-width: 0; }
 .shipment-heading { display: flex; justify-content: space-between; gap: 16px; align-items: flex-start; }
 .shipment-label { display: block; color: var(--text-muted); font-size: 10px; font-weight: 800; letter-spacing: 1px; }
 .shipment-heading strong { display: block; color: var(--navy); font-family: 'Space Grotesk', sans-serif; font-size: 18px; margin-top: 3px; }
@@ -666,6 +669,8 @@ footer {
     .dashboard-panel .section-title-bar h2 { font-size: 15px; }
     .dashboard-sync { font-size: 10px; }
     .shipment-card { padding: 16px; }
+    .shipment-card-top { flex-direction: column; gap: 14px; }
+    .shipment-image { width: 100%; height: 150px; min-height: 0; }
     .shipment-route { align-items: flex-start; flex-direction: column; gap: 8px; }
     .shipment-route > i { transform: rotate(90deg); margin-left: 4px; }
     .shipment-meta { flex-direction: column; gap: 4px; }
