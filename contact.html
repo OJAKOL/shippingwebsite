@@ -33,19 +33,10 @@
                 <i class="fas fa-search"></i>
                 <input type="text" id="main-search" placeholder="Search for support topics, routes, documentation...">
                 <button id="search-action-btn">SEARCH</button>
+                <div id="search-suggestions" class="search-suggestions"></div>
             </div>
 
             <div class="header-nav">
-                <div class="nav-item dropdown">
-                    <i class="far fa-user"></i>
-                    <span>Portal <i class="fas fa-chevron-down" style="font-size: 10px;"></i></span>
-                    <div class="dropdown-content">
-                        <a href="about.html">Profile</a>
-                        <a href="contact.html">Active Quotes</a>
-                        <hr>
-                        <a href="#" style="color: var(--jumia-orange); font-weight: bold; text-align: center;">LOG IN</a>
-                    </div>
-                </div>
                 <a href="contact.html" class="nav-item">
                     <i class="far fa-question-circle"></i>
                     <span>Help</span>
@@ -55,6 +46,17 @@
                     <span>Quotes</span>
                     <span id="cart-count" class="cart-badge">0</span>
                 </a>
+                <!-- Account Dropdown moved to the rightmost position -->
+                <div class="nav-item dropdown">
+                    <i class="far fa-user"></i>
+                    <span>Account <i class="fas fa-chevron-down" style="font-size: 10px;"></i></span>
+                    <div class="dropdown-content">
+                        <a href="dashboard.html"><i class="far fa-user"></i> Profile</a>
+                        <a href="dashboard.html"><i class="fas fa-file-invoice-dollar"></i> Active Quotes</a>
+                        <hr>
+                        <a href="index.html" style="color: red;"><i class="fas fa-sign-out-alt"></i> Logout</a>
+                    </div>
+                </div>
             </div>
         </div>
     </header>
@@ -120,14 +122,14 @@
                             <i class="fas fa-building"></i>
                             <div class="text">
                                 <strong>Global Headquarters</strong>
-                                <span>123 Logistics Tower, Dubai, UAE</span>
+                                <span>123 Kitintale, Uganda</span>
                             </div>
                         </div>
                         <div class="side-card" style="margin-bottom: 20px;">
                             <i class="fas fa-phone-alt"></i>
                             <div class="text">
                                 <strong>Direct Line</strong>
-                                <span>+971 4 000 0000</span>
+                                <span>+256 781 269 148</span>
                             </div>
                         </div>
                         <div class="side-card">

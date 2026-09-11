@@ -37,16 +37,6 @@
             </div>
 
             <div class="header-nav">
-                <div class="nav-item dropdown">
-                    <i class="far fa-user"></i>
-                    <span>Account <i class="fas fa-chevron-down" style="font-size: 10px;"></i></span>
-                    <div class="dropdown-content">
-                        <a href="about.html"><i class="far fa-user"></i> My Profile</a>
-                        <a href="contact.html"><i class="fas fa-box"></i> My Shipments</a>
-                        <hr>
-                        <a href="contact.html" style="color: var(--jumia-orange); font-weight: bold; text-align: center;">SIGN IN</a>
-                    </div>
-                </div>
                 <a href="contact.html" class="nav-item">
                     <i class="far fa-question-circle"></i>
                     <span>Help</span>
@@ -56,6 +46,17 @@
                     <span>Quotes</span>
                     <span id="cart-count" class="cart-badge">0</span>
                 </a>
+                <!-- Moved Account to the rightmost position -->
+                <div class="nav-item dropdown">
+                    <i class="far fa-user"></i>
+                    <span>Account <i class="fas fa-chevron-down" style="font-size: 10px;"></i></span>
+                    <div class="dropdown-content">
+                        <a href="dashboard.html"><i class="far fa-user"></i> Profile</a>
+                        <a href="dashboard.html"><i class="fas fa-file-invoice-dollar"></i> Active Quotes</a>
+                        <hr>
+                        <a href="index.html" style="color: red;"><i class="fas fa-sign-out-alt"></i> Logout</a>
+                    </div>
+                </div>
             </div>
         </div>
     </header>
@@ -166,7 +167,7 @@
     <nav class="mobile-nav">
         <a href="index.html" class="m-nav-item"><i class="fas fa-home"></i><span>Home</span></a>
         <a href="mechanics.html" class="m-nav-item active"><i class="fas fa-tools"></i><span>Mechanics</span></a>
-        <a href="#" class="m-nav-item modal-trigger"><i class="fas fa-search-location"></i><span>Track</span></a>
+        <a href="#" class="m-nav-item modal-trigger" data-target="track-modal"><i class="fas fa-search-location"></i><span>Track</span></a>
         <a href="contact.html" class="m-nav-item"><i class="fas fa-headset"></i><span>Help</span></a>
     </nav>
 
