@@ -104,6 +104,26 @@ document.addEventListener('DOMContentLoaded', () => {
         if (query) window.location.href = 'contact.html?query=' + encodeURIComponent(query);
     });
 
+    // --- 4. Freight Simulator ---
+    const calculateButton = document.getElementById('calculate-btn');
+    calculateButton?.addEventListener('click', () => {
+        const origin = document.getElementById('calc-origin');
+        const destination = document.getElementById('calc-dest');
+        const commodity = document.getElementById('calc-type');
+        const price = document.getElementById('est-price');
+        const route = document.getElementById('est-route');
+        if (!origin || !destination || !commodity || !price || !route) return;
+
+        const routeRates = { dubai: 1450, usa: 2200, china: 1850 };
+        const destinationRates = { kenya: 0, nigeria: 250, tanzania: 180 };
+        const commodityRates = { car: 0, machinery: 700, electronics: 420 };
+        const estimate = routeRates[origin.value] + destinationRates[destination.value] + commodityRates[commodity.value];
+        const originLabel = origin.options[origin.selectedIndex].text;
+        const destinationLabel = destination.options[destination.selectedIndex].text;
+        price.textContent = `$${estimate.toLocaleString()}`;
+        route.textContent = `${originLabel} to ${destinationLabel} • indicative estimate`;
+    });
+
     searchInput?.addEventListener('keydown', (event) => {
         if (event.key === 'Enter') document.getElementById('search-action-btn')?.click();
         if (event.key === 'Escape' && suggestionBox) suggestionBox.style.display = 'none';
@@ -129,7 +149,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // --- 5. Quote Request System ---
+    // --- 6. Quote Request System ---
     let quotes = parseInt(localStorage.getItem('zahaati_quotes')) || 0;
     const badge = document.getElementById('cart-count');
     if (badge) badge.textContent = quotes;
@@ -215,7 +235,7 @@ document.addEventListener('DOMContentLoaded', () => {
             .catch(error => { shipmentList.innerHTML = `<div class="dashboard-state error"><i class="fas fa-triangle-exclamation"></i> ${error.message} Start the server to view live shipments.</div>`; if (dashboardSync) dashboardSync.textContent = 'Offline'; });
     }
 
-    // --- 7. Quote and newsletter submissions ---
+    // --- 8. Quote and newsletter submissions ---
     const quoteForm = document.getElementById('marketplace-contact-form');
     quoteForm?.addEventListener('submit', async (event) => {
         event.preventDefault();
@@ -240,7 +260,8 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    document.getElementById('sub-submit')?.addEventListener('click', async () => {
+    document.getElementById('subscribe-form')?.addEventListener('submit', async (event) => {
+        event.preventDefault();
         const input = document.getElementById('sub-email');
         if (!input?.value) return;
         try {

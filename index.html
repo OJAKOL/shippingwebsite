@@ -109,14 +109,18 @@
         </div>
 
         <!-- Advanced Feature: Rate Calculator -->
-        <section class="section-white">
+        <section class="section-white simulator-section" id="freight-simulator">
             <div class="section-title-bar blue">
-                <h2><i class="fas fa-calculator"></i> INSTANT FREIGHT ESTIMATOR</h2>
+                <div>
+                    <span class="eyebrow">PLAN YOUR MOVE</span>
+                    <h2><i class="fas fa-calculator"></i> INSTANT FREIGHT SIMULATOR</h2>
+                </div>
+                <span class="simulator-note">Indicative pricing in USD</span>
             </div>
             <div class="rate-calc-container">
                 <div class="calc-input-group">
                     <label>Origin</label>
-                    <select id="calc-origin">
+                    <select id="calc-origin" title="Shipment origin">
                         <option value="dubai">Jebel Ali, Dubai</option>
                         <option value="usa">New York, USA</option>
                         <option value="china">Shanghai, China</option>
@@ -124,7 +128,7 @@
                 </div>
                 <div class="calc-input-group">
                     <label>Destination</label>
-                    <select id="calc-dest">
+                    <select id="calc-dest" title="Shipment destination">
                         <option value="kenya">Mombasa, Kenya</option>
                         <option value="nigeria">Lagos, Nigeria</option>
                         <option value="tanzania">Dar es Salaam, TZ</option>
@@ -132,14 +136,18 @@
                 </div>
                 <div class="calc-input-group">
                     <label>Commodity</label>
-                    <select id="calc-type">
+                    <select id="calc-type" title="Shipment commodity">
                         <option value="car">Vehicle (Sedan/SUV)</option>
                         <option value="machinery">Heavy Machinery</option>
                         <option value="electronics">Electronics (CBM)</option>
                     </select>
                 </div>
                 <button class="hero-btn" id="calculate-btn">GET RATE</button>
-                <div id="calc-result" class="calc-result">Estimated Freight: <strong id="est-price">--</strong></div>
+                <div id="calc-result" class="calc-result" aria-live="polite">
+                    <span class="result-label">Estimated freight</span>
+                    <strong id="est-price">--</strong>
+                    <span id="est-route">Select a route to see an indicative rate</span>
+                </div>
             </div>
         </section>
 
@@ -254,18 +262,25 @@
         </div>
     </div>
 
+    <section class="email-section" aria-labelledby="email-section-title">
+        <div class="container email-section-inner">
+            <div class="email-copy">
+                <span class="eyebrow">ROUTE INTELLIGENCE</span>
+                <h2 id="email-section-title">Stay ahead of every shipment.</h2>
+                <p>Get weekly route updates, rate changes, and practical freight guidance in your inbox.</p>
+            </div>
+            <form class="subscribe-form" id="subscribe-form">
+                <label class="sr-only" for="sub-email">Business email address</label>
+                <input type="email" id="sub-email" placeholder="Business email address" required>
+                <button id="sub-submit" type="submit"><i class="fas fa-arrow-right"></i> JOIN</button>
+            </form>
+        </div>
+    </section>
+
     <footer>
         <div class="container">
             <div class="footer-top">
                 <div class="footer-logo">ZAHAATI<span>FREIGHT</span></div>
-                <div class="footer-subscribe">
-                    <h4>Logistics Intelligence</h4>
-                    <p>Subscribe for weekly route updates and rate changes.</p>
-                    <div class="subscribe-form">
-                        <input type="email" id="sub-email" placeholder="Business Email">
-                        <button id="sub-submit">JOIN</button>
-                    </div>
-                </div>
             </div>
             <p style="text-align: center; color: #cbd5e1; font-size: 11px; margin-top: 30px;">&copy; 2026 ZAHAATI FREIGHTCARGO LTD. All Rights Reserved. Regulated Multi-modal Carrier.</p>
         </div>

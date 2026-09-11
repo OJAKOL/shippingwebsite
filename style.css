@@ -379,6 +379,11 @@ header .container {
     align-items: flex-end;
 }
 
+.simulator-section { border: 1px solid #d9e5eb; }
+.simulator-section .section-title-bar { padding: 20px 30px; }
+.simulator-section .section-title-bar h2 { margin-top: 4px; }
+.simulator-note { color: #b9d1df; font-size: 12px; font-weight: 700; }
+
 .calc-input-group {
     display: flex;
     flex-direction: column;
@@ -406,12 +411,18 @@ header .container {
     border: 1px solid #f9e2c6;
     padding: 15px;
     border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 14px;
     text-align: center;
-    font-size: 16px;
+    font-size: 14px;
     color: var(--navy);
 }
 
 .calc-result strong { color: var(--jumia-orange); font-size: 20px; }
+.calc-result .result-label { font-weight: 800; text-transform: uppercase; font-size: 11px; letter-spacing: 0.8px; }
+.calc-result span:last-child { color: var(--text-muted); font-size: 12px; }
 
 /* --- DEALS SECTION --- */
 .section-white {
@@ -557,6 +568,15 @@ footer {
 .subscribe-form { display: flex; gap: 10px; }
 .subscribe-form input { padding: 12px 20px; border-radius: 6px; border: 1px solid #2d4960; background: #1e3a5a; color: white; width: 300px; outline: none; }
 .subscribe-form button { background-color: var(--jumia-orange); color: white; border: none; padding: 0 24px; border-radius: 6px; font-weight: 700; cursor: pointer; }
+.email-section { margin-top: 40px; background: #173d59; color: white; }
+.email-section-inner { display: flex; align-items: center; justify-content: space-between; gap: 40px; padding-top: 34px; padding-bottom: 34px; }
+.email-copy { max-width: 560px; }
+.email-copy h2 { font-family: 'Space Grotesk', sans-serif; font-size: 28px; margin: 5px 0 8px; }
+.email-copy p { color: #c9dce7; font-size: 14px; }
+.email-section .eyebrow { color: #f4b860; }
+.email-section .subscribe-form { flex: 0 1 470px; }
+.email-section .subscribe-form input { flex: 1; width: auto; }
+.sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0; }
 
 /* --- MOBILE --- */
 .mobile-nav {
@@ -635,6 +655,12 @@ footer {
     .subscribe-form { flex-direction: column; width: 100%; }
     .subscribe-form input { width: 100%; }
     .rate-calc-container { grid-template-columns: 1fr; padding: 20px; }
+    .simulator-section .section-title-bar { padding: 16px; }
+    .simulator-note { display: none; }
+    .calc-result { align-items: flex-start; flex-direction: column; gap: 4px; text-align: left; }
+    .email-section-inner { align-items: flex-start; flex-direction: column; gap: 20px; }
+    .email-copy h2 { font-size: 24px; }
+    .email-section .subscribe-form { width: 100%; }
     .dashboard-panel { padding: 0 12px 12px; }
     .dashboard-panel .section-title-bar { margin: 0 -12px; padding: 16px; }
     .dashboard-panel .section-title-bar h2 { font-size: 15px; }
