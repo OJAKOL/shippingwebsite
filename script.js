@@ -1,5 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const API_BASE = window.location.protocol === 'file:' ? 'http://localhost:3000/api' : '/api';
+    const configuredApiBase = window.ZAHAATI_API_BASE?.trim();
+    const API_BASE = configuredApiBase || (window.location.protocol === 'file:' ? 'http://localhost:3000/api' : '/api');
 
     // --- 1. Global Data for Search Suggestions ---
     const services = [
@@ -267,7 +268,8 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    const requestedService = new URLSearchParams(window.location.search).get('service');
+    const requestedService = new URLSearchParams(window.location.search).get('service')
+        || new URLSearchParams(window.location.search).get('query');
     const shipmentDetails = document.querySelector('[name="shipment_details"]');
     if (requestedService && shipmentDetails) {
         shipmentDetails.value = `I would like a quote for: ${requestedService}\n\nOrigin and destination: `;
@@ -310,6 +312,18 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // --- 6. Dashboard Integration ---
     const shipmentList = document.getElementById('shipment-list');
+    const quoteList = document.getElementById('quote-list');
+    const addressSection = document.getElementById('address-list');
+    const addressesGrid = document.getElementById('addresses');
+    const addressForm = document.getElementById('address-form');
+    const addressFormTitle = document.getElementById('address-form-title');
+    const addressFormStatus = document.getElementById('address-form-status');
+    const addressCancel = document.getElementById('address-cancel');
+    const settingsSection = document.getElementById('settings-panel');
+    const profileForm = document.getElementById('profile-form');
+    const profileFormStatus = document.getElementById('profile-form-status');
+    const passwordForm = document.getElementById('password-form');
+    const passwordFormStatus = document.getElementById('password-form-status');
     const dashboardSync = document.getElementById('dashboard-sync');
 
     function renderShipments(shipments) {
@@ -356,11 +370,215 @@ document.addEventListener('DOMContentLoaded', () => {
     if (shipmentList) {
         fetch(`${API_BASE}/auth/me`, { credentials: 'include' })
             .then(response => { if (response.status === 401) { window.location.href = 'index.html'; throw new Error('Please sign in to view your portal.'); } if (!response.ok) throw new Error('Unable to verify your session.'); return response.json(); })
-            .then(() => fetch(`${API_BASE}/shipments`, { credentials: 'include' }))
+            .then(({ user }) => { populateProfile(user); return fetch(`${API_BASE}/shipments`, { credentials: 'include' }); })
             .then(response => { if (!response.ok) throw new Error('Unable to load shipments.'); return response.json(); })
             .then(shipments => { renderShipments(shipments); if (dashboardSync) dashboardSync.textContent = 'Live data'; })
             .catch(error => { shipmentList.innerHTML = `<div class="dashboard-state error"><i class="fas fa-triangle-exclamation"></i> ${error.message} Start the server to view live shipments.</div>`; if (dashboardSync) dashboardSync.textContent = 'Offline'; });
     }
+
+    function renderQuotes(quotes) {
+        if (!quoteList) return;
+        quoteList.replaceChildren();
+        if (quotes.length === 0) {
+            const empty = document.createElement('div');
+            empty.className = 'dashboard-state';
+            const icon = document.createElement('i');
+            icon.className = 'fas fa-file-invoice';
+            empty.append(icon, document.createTextNode(' No quote requests yet. '));
+            const link = document.createElement('a');
+            link.href = 'contact.html#quote-form';
+            link.textContent = 'Request a quote.';
+            empty.appendChild(link);
+            quoteList.appendChild(empty);
+            return;
+        }
+        quotes.forEach(quote => {
+            const card = document.createElement('article');
+            card.className = 'quote-card';
+            const date = new Date(quote.created_at).toLocaleDateString(undefined, { year: 'numeric', month: 'short', day: 'numeric' });
+            const content = document.createElement('div');
+            const label = document.createElement('span');
+            label.className = 'shipment-label';
+            label.textContent = `REQUESTED ${date}`;
+            const title = document.createElement('h3');
+            title.textContent = quote.commodity_type || 'General freight';
+            const details = document.createElement('p');
+            details.textContent = quote.shipment_details || '';
+            content.append(label, title, details);
+            const status = document.createElement('span');
+            status.className = `quote-status ${quote.status}`;
+            status.textContent = quote.status;
+            card.append(content, status);
+            quoteList.appendChild(card);
+        });
+    }
+
+    let quotesLoaded = false;
+    let addressesLoaded = false;
+    let editingAddressId = null;
+
+    function renderAddresses(addresses) {
+        if (!addressesGrid) return;
+        addressesGrid.replaceChildren();
+        if (addresses.length === 0) {
+            const empty = document.createElement('div');
+            empty.className = 'dashboard-state';
+            empty.textContent = 'No saved addresses yet. Add your first shipping destination above.';
+            addressesGrid.appendChild(empty);
+            return;
+        }
+        addresses.forEach(address => {
+            const card = document.createElement('article');
+            card.className = 'address-card';
+            const heading = document.createElement('div');
+            heading.className = 'address-card-heading';
+            const title = document.createElement('h3');
+            title.textContent = address.label;
+            heading.appendChild(title);
+            if (address.is_default) {
+                const badge = document.createElement('span');
+                badge.className = 'default-badge';
+                badge.textContent = 'Default';
+                heading.appendChild(badge);
+            }
+            const details = document.createElement('p');
+            details.textContent = `${address.recipient_name}\n${address.line1}\n${address.city}, ${address.country}${address.postal_code ? ` ${address.postal_code}` : ''}${address.phone ? `\n${address.phone}` : ''}`;
+            const actions = document.createElement('div');
+            actions.className = 'address-actions';
+            actions.innerHTML = `<button type="button" data-address-action="edit" data-address-id="${address.id}">Edit</button><button type="button" data-address-action="delete" data-address-id="${address.id}">Delete</button>${address.is_default ? '' : `<button type="button" data-address-action="default" data-address-id="${address.id}">Set default</button>`}`;
+            card.append(heading, details, actions);
+            addressesGrid.appendChild(card);
+        });
+    }
+
+    let addressCache = [];
+    function loadAddresses() {
+        if (!addressesGrid || addressesLoaded) return;
+        fetch(`${API_BASE}/addresses`, { credentials: 'include' })
+            .then(response => { if (!response.ok) throw new Error('Unable to load addresses.'); return response.json(); })
+            .then(data => { addressCache = data; renderAddresses(data); addressesLoaded = true; })
+            .catch(error => { addressesGrid.innerHTML = `<div class="dashboard-state error">${error.message}</div>`; });
+    }
+
+    function resetAddressForm() {
+        editingAddressId = null;
+        addressForm?.reset();
+        if (addressFormTitle) addressFormTitle.textContent = 'ADD AN ADDRESS';
+        if (addressCancel) addressCancel.hidden = true;
+        if (addressFormStatus) addressFormStatus.textContent = '';
+    }
+
+    addressCancel?.addEventListener('click', resetAddressForm);
+    addressForm?.addEventListener('submit', async event => {
+        event.preventDefault();
+        const payload = Object.fromEntries(new FormData(addressForm));
+        payload.is_default = addressForm.elements.is_default.checked;
+        const method = editingAddressId ? 'PUT' : 'POST';
+        const endpoint = editingAddressId ? `/addresses/${editingAddressId}` : '/addresses';
+        try {
+            const response = await fetch(`${API_BASE}${endpoint}`, { method, credentials: 'include', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
+            const result = await response.json();
+            if (!response.ok) throw new Error(result.error || 'Unable to save address.');
+            addressFormStatus.textContent = result.message;
+            addressFormStatus.className = 'form-status success';
+            addressCache = [];
+            addressesLoaded = false;
+            resetAddressForm();
+            loadAddresses();
+        } catch (error) {
+            addressFormStatus.textContent = error.message;
+            addressFormStatus.className = 'form-status error';
+        }
+    });
+
+    addressesGrid?.addEventListener('click', async event => {
+        const button = event.target.closest('[data-address-action]');
+        if (!button) return;
+        const id = Number(button.dataset.addressId);
+        const address = addressCache.find(item => item.id === id);
+        if (button.dataset.addressAction === 'edit' && address) {
+            editingAddressId = id;
+            Object.entries(address).forEach(([key, value]) => { if (addressForm.elements[key]) addressForm.elements[key].type === 'checkbox' ? addressForm.elements[key].checked = Boolean(value) : addressForm.elements[key].value = value || ''; });
+            addressFormTitle.textContent = 'EDIT ADDRESS';
+            addressCancel.hidden = false;
+            addressForm.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+        if (button.dataset.addressAction === 'delete' && confirm('Delete this saved address?')) {
+            const response = await fetch(`${API_BASE}/addresses/${id}`, { method: 'DELETE', credentials: 'include' });
+            if (response.ok) { addressCache = []; addressesLoaded = false; loadAddresses(); }
+        }
+        if (button.dataset.addressAction === 'default') {
+            const response = await fetch(`${API_BASE}/addresses/${id}/default`, { method: 'POST', credentials: 'include' });
+            if (response.ok) { addressCache = []; addressesLoaded = false; loadAddresses(); }
+        }
+    });
+
+    function populateProfile(user) {
+        if (!profileForm) return;
+        Object.entries(user).forEach(([key, value]) => {
+            if (profileForm.elements[key]) profileForm.elements[key].value = value || '';
+        });
+    }
+
+    profileForm?.addEventListener('submit', async event => {
+        event.preventDefault();
+        const payload = Object.fromEntries(new FormData(profileForm));
+        try {
+            const response = await fetch(`${API_BASE}/auth/profile`, { method: 'PUT', credentials: 'include', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
+            const result = await response.json();
+            if (!response.ok) throw new Error(result.error || 'Unable to update profile.');
+            populateProfile(result.user);
+            profileFormStatus.textContent = result.message;
+            profileFormStatus.className = 'form-status success';
+        } catch (error) {
+            profileFormStatus.textContent = error.message;
+            profileFormStatus.className = 'form-status error';
+        }
+    });
+
+    passwordForm?.addEventListener('submit', async event => {
+        event.preventDefault();
+        const payload = Object.fromEntries(new FormData(passwordForm));
+        try {
+            const response = await fetch(`${API_BASE}/auth/password`, { method: 'PUT', credentials: 'include', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
+            const result = await response.json();
+            if (!response.ok) throw new Error(result.error || 'Unable to update password.');
+            passwordForm.reset();
+            passwordFormStatus.textContent = result.message;
+            passwordFormStatus.className = 'form-status success';
+        } catch (error) {
+            passwordFormStatus.textContent = error.message;
+            passwordFormStatus.className = 'form-status error';
+        }
+    });
+
+    function setPortalView(view) {
+        const showQuotes = view === 'quotes';
+        const showAddresses = view === 'addresses';
+        const showSettings = view === 'settings';
+        if (shipmentList) shipmentList.hidden = showQuotes || showAddresses || showSettings;
+        if (quoteList) quoteList.hidden = !showQuotes;
+        if (addressSection) addressSection.hidden = !showAddresses;
+        if (settingsSection) settingsSection.hidden = !showSettings;
+        const title = document.querySelector('.dashboard-panel .section-title-bar h2');
+        if (title) title.textContent = showQuotes ? 'MY QUOTES' : showAddresses ? 'SAVED ADDRESSES' : showSettings ? 'ACCOUNT SETTINGS' : 'ACTIVE SHIPMENTS';
+        if (showAddresses) loadAddresses();
+    }
+
+    document.querySelectorAll('.portal-view-link').forEach(link => {
+        link.addEventListener('click', event => {
+            event.preventDefault();
+            const view = link.dataset.portalView;
+            document.querySelectorAll('.portal-view-link').forEach(item => item.classList.toggle('active', item === link));
+            setPortalView(view);
+            if (view === 'quotes' && !quotesLoaded) {
+                fetch(`${API_BASE}/quotes`, { credentials: 'include' })
+                    .then(response => { if (!response.ok) throw new Error('Unable to load quote requests.'); return response.json(); })
+                    .then(data => { renderQuotes(data); quotesLoaded = true; })
+                    .catch(error => { quoteList.innerHTML = `<div class="dashboard-state error">${error.message}</div>`; });
+            }
+        });
+    });
 
     // --- 8. Quote and newsletter submissions ---
     const quoteForm = document.getElementById('marketplace-contact-form');
@@ -375,7 +593,7 @@ document.addEventListener('DOMContentLoaded', () => {
             shipment_details: values.get('shipment_details') || quoteForm.querySelector('textarea')?.value
         };
         try {
-            const response = await fetch(`${API_BASE}/quotes`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
+            const response = await fetch(`${API_BASE}/quotes`, { method: 'POST', credentials: 'include', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
             const result = await response.json();
             if (!response.ok) throw new Error(result.error || 'Unable to submit request.');
             status.textContent = 'Request received. A freight specialist will respond within 24 hours.';

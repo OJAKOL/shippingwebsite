@@ -41,10 +41,10 @@
         <div class="main-grid">
             <aside class="sidebar-menu">
                 <div style="padding: 10px 16px; font-weight: bold; color: var(--navy);">MY PORTAL</div>
-                <a href="#" class="active"><i class="fas fa-box"></i> Active Shipments</a>
-                <a href="#"><i class="fas fa-file-invoice"></i> My Quotes</a>
-                <a href="#"><i class="fas fa-address-book"></i> Addresses</a>
-                <a href="#"><i class="fas fa-user-cog"></i> Account Settings</a>
+                <a href="#shipment-list" class="portal-view-link active" data-portal-view="shipments"><i class="fas fa-box"></i> Active Shipments</a>
+                <a href="#quote-list" class="portal-view-link" data-portal-view="quotes"><i class="fas fa-file-invoice"></i> My Quotes</a>
+                <a href="#address-list" class="portal-view-link" data-portal-view="addresses"><i class="fas fa-address-book"></i> Addresses</a>
+                <a href="#settings-panel" class="portal-view-link" data-portal-view="settings"><i class="fas fa-user-cog"></i> Account Settings</a>
                 <hr>
                 <a href="contact.html"><i class="fas fa-headset"></i> Help Center</a>
             </aside>
@@ -60,6 +60,52 @@
 
                 <div id="shipment-list" class="shipment-list">
                     <div class="dashboard-state"><i class="fas fa-circle-notch fa-spin"></i> Loading shipment data...</div>
+                </div>
+
+                <div id="quote-list" class="quote-list" hidden>
+                    <div class="dashboard-state"><i class="fas fa-circle-notch fa-spin"></i> Loading quote requests...</div>
+                </div>
+
+                <div id="address-list" class="address-section" hidden>
+                    <form id="address-form" class="address-form">
+                        <div class="address-form-heading"><div><span class="eyebrow">SAVED DESTINATIONS</span><h3 id="address-form-title">ADD AN ADDRESS</h3></div><button type="button" id="address-cancel" class="secondary-button" hidden>Cancel edit</button></div>
+                        <div id="address-form-status" class="form-status" role="status" aria-live="polite"></div>
+                        <div class="address-fields">
+                            <label>Label<input name="label" placeholder="e.g. Main warehouse" required></label>
+                            <label>Recipient name<input name="recipient_name" autocomplete="name" required></label>
+                            <label class="address-field-wide">Street address<input name="line1" autocomplete="street-address" required></label>
+                            <label>City<input name="city" autocomplete="address-level2" required></label>
+                            <label>Country<input name="country" autocomplete="country-name" required></label>
+                            <label>Postal code<input name="postal_code" autocomplete="postal-code"></label>
+                            <label>Phone<input name="phone" autocomplete="tel"></label>
+                            <label class="address-checkbox"><input name="is_default" type="checkbox"> Use as default shipping address</label>
+                        </div>
+                        <button class="hero-btn address-submit" type="submit">SAVE ADDRESS</button>
+                    </form>
+                    <div id="addresses" class="addresses-grid"><div class="dashboard-state"><i class="fas fa-circle-notch fa-spin"></i> Loading addresses...</div></div>
+                </div>
+
+                <div id="settings-panel" class="settings-section" hidden>
+                    <form id="profile-form" class="settings-form">
+                        <div class="address-form-heading"><div><span class="eyebrow">YOUR ACCOUNT</span><h3>PROFILE DETAILS</h3></div></div>
+                        <div id="profile-form-status" class="form-status" role="status" aria-live="polite"></div>
+                        <div class="address-fields">
+                            <label>Full name<input name="full_name" autocomplete="name" required></label>
+                            <label>Email address<input name="email" type="email" autocomplete="email" required></label>
+                            <label>Company name<input name="company_name" autocomplete="organization"></label>
+                            <label>Phone number<input name="phone" autocomplete="tel"></label>
+                        </div>
+                        <button class="hero-btn address-submit" type="submit">SAVE PROFILE</button>
+                    </form>
+                    <form id="password-form" class="settings-form">
+                        <div class="address-form-heading"><div><span class="eyebrow">SECURITY</span><h3>CHANGE PASSWORD</h3></div></div>
+                        <div id="password-form-status" class="form-status" role="status" aria-live="polite"></div>
+                        <div class="address-fields">
+                            <label>Current password<input name="current_password" type="password" autocomplete="current-password" required></label>
+                            <label>New password<input name="new_password" type="password" autocomplete="new-password" minlength="8" required></label>
+                        </div>
+                        <button class="hero-btn address-submit" type="submit">UPDATE PASSWORD</button>
+                    </form>
                 </div>
             </section>
         </div>
@@ -94,6 +140,7 @@
         </div>
     </div>
 
+    <script src="config.js"></script>
     <script src="script.js"></script>
 </body>
 </html>

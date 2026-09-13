@@ -66,15 +66,15 @@
         <div class="main-grid">
             <aside class="sidebar-menu">
                 <div style="padding: 10px 16px; font-weight: bold; color: var(--navy); border-bottom: 1px solid var(--border);">HELP CENTER</div>
-                <a href="#" style="color: var(--jumia-orange); font-weight: bold;"><i class="fas fa-envelope"></i> Message Us</a>
-                <a href="#"><i class="fas fa-phone"></i> Call Support</a>
-                <a href="#"><i class="fas fa-map-marker-alt"></i> Office Locations</a>
-                <a href="#"><i class="fas fa-file-pdf"></i> Shipping Docs</a>
+                <a href="#quote-form" style="color: var(--jumia-orange); font-weight: bold;"><i class="fas fa-envelope"></i> Message Us</a>
+                <a href="tel:+97140000000"><i class="fas fa-phone"></i> Call Support</a>
+                <a href="#office-locations"><i class="fas fa-map-marker-alt"></i> Office Locations</a>
+                <a href="#shipping-docs"><i class="fas fa-file-pdf"></i> Shipping Docs</a>
                 <hr>
                 <a href="about.html"><i class="fas fa-question"></i> FAQs</a>
             </aside>
 
-            <section class="section-white" style="grid-column: span 2; padding: 30px;">
+            <section id="quote-form" class="section-white" style="grid-column: span 2; padding: 30px;">
                 <div class="section-title-bar blue">
                     <h2>GET A SHIPPING QUOTE / CONTACT US</h2>
                 </div>
@@ -146,6 +146,24 @@
                 </div>
             </section>
         </div>
+
+        <section id="office-locations" class="section-white info-section">
+            <div class="section-title-bar blue"><h2><i class="fas fa-map-marker-alt"></i> OFFICE LOCATIONS</h2></div>
+            <div class="info-grid">
+                <article class="info-card"><i class="fas fa-building"></i><h3>Dubai Headquarters</h3><p>123 Logistics Tower, Dubai, UAE</p><a href="tel:+97140000000">+971 4 000 0000</a></article>
+                <article class="info-card"><i class="fas fa-anchor"></i><h3>East Africa Desk</h3><p>Coordinating port delivery across Mombasa and Dar es Salaam.</p><a href="#quote-form">Request route support</a></article>
+                <article class="info-card"><i class="fas fa-globe"></i><h3>Global Operations</h3><p>New York, Shanghai, and Lagos routing support available.</p><a href="#quote-form">Contact operations</a></article>
+            </div>
+        </section>
+
+        <section id="shipping-methods" class="section-white info-section">
+            <div class="section-title-bar blue"><h2><i class="fas fa-route"></i> SHIPPING METHODS & DOCUMENTS</h2></div>
+            <div class="info-grid">
+                <article class="info-card"><i class="fas fa-ship"></i><h3>Ro-Ro Shipping</h3><p>Drive-on, drive-off handling for vehicles and rolling equipment.</p><a href="#quote-form">Request a Ro-Ro quote</a></article>
+                <article class="info-card"><i class="fas fa-box-open"></i><h3>FCL / LCL Containers</h3><p>Full and shared container options for protected general cargo.</p><a href="#quote-form">Request a container quote</a></article>
+                <article id="shipping-docs" class="info-card"><i class="fas fa-file-pdf"></i><h3>Shipping Documents</h3><p>We help prepare commercial invoices, packing lists, bills of lading, and customs paperwork.</p><a href="#quote-form">Ask for document support</a></article>
+            </div>
+        </section>
     </main>
 
     <!-- Tracking Modal -->
@@ -184,6 +202,7 @@
         <a href="contact.html" class="m-nav-item active"><i class="fas fa-headset"></i><span>Help</span></a>
     </nav>
 
+    <script src="config.js"></script>
     <script src="script.js"></script>
 </body>
 </html>
